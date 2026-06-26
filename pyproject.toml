@@ -1,0 +1,7 @@
+[project]
+name = "fhir-kfi-dbt-model"
+version = "0.1.0"
+dependencies = [
+    "dbt-core>=1.8.0 ",
+    "dbt-postgres>=1.8.0 "
+]
