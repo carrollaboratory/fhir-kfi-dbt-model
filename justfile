@@ -1,5 +1,7 @@
+_ensure_min_just_version := `min="1.51.0"; cur="$(just --version | cut -d' ' -f2)"; if [ "$(printf '%s\n%s\n' "$min" "$cur" | sort -V | head -n1)" != "$min" ]; then echo "just $cur is too old — this justfile requires just >= $min. See https://just.systems/man/en/pre-built-binaries.html" >&2; exit 1; fi`
+PROJECT_DIR := "fhir_kfi_dbt_model"
+export ACCESS_MODEL_SCHEMA := "dev_include_access"
 
-PROJECT_DIR := fhir_kfi_dbt_model
 
 # Let's just default to running the unit tests. We may bump this up to the fhir
 # stuff by default later, but this should be a good starting point.
@@ -12,6 +14,10 @@ flatten-test-data:
 
 start-pgsql:
   docker start dbt-test-pg || true
+
+create-schema: start-pgsql
+  psql service=dbt-test -c "DROP SCHEMA IF EXISTS {{ACCESS_MODEL_SCHEMA}} CASCADE; CREATE SCHEMA {{ACCESS_MODEL_SCHEMA}};"
+  psql service=dbt-test -f tests/fixtures/sql/common-access-model.sql
 
 [working-directory(PROJECT_DIR)]
 test: flatten-test-data start-pgsql

@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: stg_consent
+    description: >
+      Access Policy staging model for FHIR consent resources.
+    columns:
+      - name: id
+        description: >
+          FHIR Consent.id. Access Policy Global ID
+        tests:
+          - not_null
+          - unique
+
+      - name: access_policy_id
+        description: >
+          Access Policy Global ID. This will be used as Consent.id
+          in the FHIR resource.
+        tests:
+          - not_null
+          - unique
+
+      - name: data_use_accession
+        description: >
+          Accession used to provision access, e.g. a dbGaP phsID expressed as a CURIE
+          or URI. Maps to Consent.identifier[0].value. Optional.
+
+      - name: data_use_permission
+        description: >
+          DUO data use permission CURIE (e.g. DUO:0000007). Required.
+          Maps to Consent.provision.purpose[0].code with system
+          http://purl.obolibrary.org/obo/duo.owl (TODO: confirm URI).
+        tests:
+          - not_null
+
+      - name: data_use_modifier
+        description: >
+          DUO data use modifier CURIE (e.g. DUO:0000045). Optional. Single-value only
+          in this implementation. Maps to Consent.provision.purpose[1].code.
+          See NOTE in stg_consent.sql for the multivalued-modifier limitation.
+
+      - name: disease_limitation
+        description: >
+          Free-text description of the disease(s) to which data use is limited. Optional.
+          Maps to a Consent extension (URL TODO). If structured disease codes become
+          available, this should become a concept curie + display pair.
+
+      - name: access_description
+        description: >
+          Additional free-text information for access requests. Optional.
+          Maps to a Consent extension (URL TODO).
+
+      - name: website
+        description: >
+          URI for a web page with more information about this policy. Optional.
+          Maps to a Consent extension (URL TODO).
+
+      - name: meta_last_updated
+        description: Timestamp used for Consent.meta.lastUpdated.
+        tests:
+          - not_null
+
+      - name: _source_system
+        description: Originating system identifier. Always 'include'.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["include"]
