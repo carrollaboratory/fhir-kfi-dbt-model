@@ -1,0 +1,9 @@
+name: Research Study to ResearchStudy
+description: Validates the conversion of research study data
+model: stg_research_study
+source_table: research_study
+
+access_content:
+  - tdb: asdf
+resource_content:
+  - tbd: asdf
