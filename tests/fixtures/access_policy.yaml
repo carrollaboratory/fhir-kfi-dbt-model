@@ -5,6 +5,7 @@ source_table: access_policy
 
 access_content:
   - access_policy_id: co-ajdm9fyxxz
+    source_table: access_policy
     access_description: General Research Use
     data_use_accession: dbgap:phs000000
     data_use_permission: DUO:0000042 # GRU
@@ -12,6 +13,7 @@ access_content:
     website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
     disease_limitation: null
   - access_policy_id: co-t869rg8xx6
+    source_table: access_policy
     access_description: General Research Use
     data_use_accession: dbgap:phs000000
     data_use_permission: DUO:0000042 # GRU

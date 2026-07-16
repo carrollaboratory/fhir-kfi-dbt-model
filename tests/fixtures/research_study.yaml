@@ -1,9 +1,44 @@
 name: Research Study to ResearchStudy
 description: Validates the conversion of research study data
 model: stg_research_study
-source_table: research_study
+source_table: study
 
 access_content:
-  - tdb: asdf
+  - study_id: sd-7hwpqzc2yr
+    source_table: study
+    study_title: Madamoiselle Moo's Marvelous Research Study
+    study_code: M00M00
+    study_short_name: M00M00 Study
+    parent_study: null
+    study_description:
+      This project aims to exist for the main purpose of helping the INCLUDE
+      DCC with data ingestion into the portal by serving as a test study with all relevant
+      parts of the INCLUDE data model.
+    access_policy_id: co-ajdm9fyxxz
+  - Study_study_id: sd-7hwpqzc2yr
+    source_table: study_external_id
+    external_id: phs000000
+  - Study_study_id: sd-7hwpqzc2yr
+    source_table: study_external_id
+    external_id: M00M00-01
+  - name: Robert Carroll
+    source_table: investigator
+    id: 12345
+    institution: Vanderbilt University Medical Center
+    investigator_title: PI
+    email: robert.carroll@vumc.org
+    access_policy_id: co-ajdm9fyxxz
+  - study_study_id: sd-7hwpqzc2yr
+    principal_investigator_id: 12345
+    source_table: study_principal_investigator
 resource_content:
-  - tbd: asdf
+  - id: sd-7hwpqzc2yr
+    short_name: M00M00 Study
+    study_code: M00M00
+    access_policy_id: co-ajdm9fyxxz
+    part_of: null
+    description:
+      This project aims to exist for the main purpose of helping the INCLUDE
+      DCC with data ingestion into the portal by serving as a test study with all relevant
+      parts of the INCLUDE data model.
+    external_ids: '["M00M00-01", "phs000000"]'
