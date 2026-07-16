@@ -10,7 +10,7 @@ default: test
 # The unit tests will be defined as YAML files, but the DBT unittests want
 # CSVs.
 flatten-test-data:
-  uv run python scripts/flatten_test_fixtures.py
+  uv run python scripts/extract_fixtures.py
 
 start-pgsql:
   docker start dbt-test-pg || true
@@ -18,6 +18,12 @@ start-pgsql:
 create-schema: start-pgsql
   psql service=dbt-test -c "DROP SCHEMA IF EXISTS {{ACCESS_MODEL_SCHEMA}} CASCADE; CREATE SCHEMA {{ACCESS_MODEL_SCHEMA}};"
   psql service=dbt-test -f tests/fixtures/sql/common-access-model.sql
+
+# [working-directory(PROJECT_DIR)]
+clean:
+  # just and dbt don't play nicely together for dbt clean, so doing it the
+  # old fashioned way. rm -rf
+  rm -rf {{PROJECT_DIR}}/target/ {{PROJECT_DIR}}/logs/
 
 [working-directory(PROJECT_DIR)]
 test: flatten-test-data start-pgsql
