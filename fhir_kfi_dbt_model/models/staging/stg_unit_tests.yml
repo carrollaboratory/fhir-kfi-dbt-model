@@ -4,49 +4,81 @@ unit_tests:
   description: Validates the conversion of research study data
   model: stg_research_study
   given:
-  - input: source('dev_include_access', 'research_study')
+  - input: source('dev_include_access', 'study')
     rows:
-    - - tdb: asdf
+    - study_id: sd-7hwpqzc2yr
+      study_title: Madamoiselle Moo's Marvelous Research Study
+      study_code: M00M00
+      study_short_name: M00M00 Study
+      parent_study: null
+      study_description: This project aims to exist for the main purpose of helping
+        the INCLUDE DCC with data ingestion into the portal by serving as a test study
+        with all relevant parts of the INCLUDE data model.
+      access_policy_id: co-ajdm9fyxxz
+  - input: source('dev_include_access', 'study_external_id')
+    rows:
+    - Study_study_id: sd-7hwpqzc2yr
+      external_id: phs000000
+    - Study_study_id: sd-7hwpqzc2yr
+      external_id: M00M00-01
+  - input: source('dev_include_access', 'investigator')
+    rows:
+    - name: Robert Carroll
+      id: 12345
+      institution: Vanderbilt University Medical Center
+      investigator_title: PI
+      email: robert.carroll@vumc.org
+      access_policy_id: co-ajdm9fyxxz
+  - input: source('dev_include_access', 'study_principal_investigator')
+    rows:
+    - study_study_id: sd-7hwpqzc2yr
+      principal_investigator_id: 12345
   expect:
     rows:
-    - - tbd: asdf
+    - id: sd-7hwpqzc2yr
+      short_name: M00M00 Study
+      study_code: M00M00
+      access_policy_id: co-ajdm9fyxxz
+      part_of: null
+      description: This project aims to exist for the main purpose of helping the
+        INCLUDE DCC with data ingestion into the portal by serving as a test study
+        with all relevant parts of the INCLUDE data model.
+      external_ids: '["M00M00-01", "phs000000"]'
 - name: Access Policy to Consent
   description: Validates the conversion of access policy into consent
   model: stg_consent
   given:
   - input: source('dev_include_access', 'access_policy')
     rows:
-    - - access_policy_id: co-ajdm9fyxxz
-        access_description: General Research Use
-        data_use_accession: dbgap:phs000000
-        data_use_permission: DUO:0000042
-        data_use_modifier: DUO:0000045
-        website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
-        data_access_type: open
-        disease_limitation: null
-      - access_policy_id: co-t869rg8xx6
-        access_description: General Research Use
-        data_use_accession: dbgap:phs000000
-        data_use_permission: DUO:0000042
-        data_use_modifier: DUO:0000045
-        data_access_type: open
-        website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/2
-        disease_limitation: MSH:D012919 "Social Behavior"
+    - access_policy_id: co-ajdm9fyxxz
+      access_description: General Research Use
+      data_use_accession: dbgap:phs000000
+      data_use_permission: DUO:0000042
+      data_use_modifier: DUO:0000045
+      website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
+      disease_limitation: null
+    - access_policy_id: co-t869rg8xx6
+      access_description: General Research Use
+      data_use_accession: dbgap:phs000000
+      data_use_permission: DUO:0000042
+      data_use_modifier: DUO:0000045
+      website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/2
+      disease_limitation: MSH:D012919
   expect:
     rows:
-    - - id: co-ajdm9fyxxz
-        access_policy_id: co-ajdm9fyxxz
-        data_use_accession: dbgap:phs000000
-        data_use_permission: DUO:0000042
-        data_use_modifier: DUO:0000045
-        disease_limition: null
-        access_description: General Research Use
-        website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
-      - id: co-t869rg8xx6
-        access_policy_id: co-t869rg8xx6
-        data_use_accession: dbgap:phs000000
-        data_use_permission: DUO:0000042
-        data_use_modifier: DUO:0000045
-        disease_limition: null
-        access_description: General Research Use
-        website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
+    - id: co-ajdm9fyxxz
+      access_policy_id: co-ajdm9fyxxz
+      data_use_accession: dbgap:phs000000
+      data_use_permission: DUO:0000042
+      data_use_modifier: DUO:0000045
+      disease_limitation: null
+      access_description: General Research Use
+      website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
+    - id: co-t869rg8xx6
+      access_policy_id: co-t869rg8xx6
+      data_use_accession: dbgap:phs000000
+      data_use_permission: DUO:0000042
+      data_use_modifier: DUO:0000045
+      disease_limitation: MSH:D012919
+      access_description: General Research Use
+      website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/2
