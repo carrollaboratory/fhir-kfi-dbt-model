@@ -1,5 +1,7 @@
 import logging
+import pdb
 from argparse import ArgumentParser
+from collections import defaultdict
 from csv import DictReader, DictWriter
 from pathlib import Path
 from typing import Any, Dict, List
@@ -68,12 +70,24 @@ def exec(arguments: List[Any] | None = None):
 
     for yaml_filename in Path(args.fixtures_dir).glob("*.yaml"):
         logging.info(f"Extracting data from {yaml_filename}")
-        csv_filename = Path(args.seed) / f"{yaml_filename.stem}.csv"
+        # csv_filename = Path(args.seed) / f"{yaml_filename.stem}.csv"
 
         data = yaml.safe_load(yaml_filename.open("rt"))
 
-        access_content = data.get("access_content", [])
-        dump_to_csv(csv_filename, access_content)
+        # We now can expect different tables, so we'll need to break them up
+        # accordingly. This does assume that there won't be references to
+        # tables in these tests that are referenced in other places. That is
+        # probably a terrible assumption.
+        access_content = defaultdict(list)
+        for content in data.get("access_content", []):
+            access_content[content["source_table"]].append(
+                {k: v for k, v in content.items() if k != "source_table"}
+            )
+
+        for table, table_data in access_content.items():
+            filename = Path(args.seed) / f"{table}.csv"
+            dump_to_csv(filename, table_data)
+            logging.info(filename)
 
         # Now we'll prepare the unit test content for this one:
         unit_tests["unit_tests"].append(
@@ -81,15 +95,19 @@ def exec(arguments: List[Any] | None = None):
                 "name": data["name"],
                 "description": data["description"],
                 "model": data["model"],
-                "given": [
-                    {
-                        "input": f"source('dev_include_access', '{data['source_table']}')",
-                        "rows": [data.get("access_content")],
-                    }
-                ],
-                "expect": {"rows": [data.get("resource_content")]},
+                "given": [],
+                "expect": {"rows": data.get("resource_content")},
             }
         )
+        print(f"The length of unit tests: {len(unit_tests['unit_tests'])}")
+
+        for table, table_data in access_content.items():
+            unit_tests["unit_tests"][-1]["given"].append(
+                {
+                    "input": f"source('dev_include_access', '{table}')",
+                    "rows": table_data,
+                }
+            )
 
     print(unit_tests)
     unit_path = cwd / args.project_name / args.unit_filename
