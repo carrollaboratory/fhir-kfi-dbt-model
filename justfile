@@ -26,6 +26,10 @@ clean:
   rm -rf {{PROJECT_DIR}}/target/ {{PROJECT_DIR}}/logs/
 
 [working-directory(PROJECT_DIR)]
+fluffit:
+    uv run sqlfluff fix --force .
+
+[working-directory(PROJECT_DIR)]
 test: flatten-test-data start-pgsql
   uv run dbt test --select "test_type:unit"
 

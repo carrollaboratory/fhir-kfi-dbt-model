@@ -1,6 +1,4 @@
-
-
-with  research_study as (
+with research_study as (
     select * from {{ source('dev_include_access', 'study') }}
 ),
 
@@ -9,7 +7,8 @@ external_ids as (
 ),
 
 study_principal_investigators as (
-    select * from {{ source('dev_include_access', 'study_principal_investigator') }}
+    select *
+    from {{ source('dev_include_access', 'study_principal_investigator') }}
 ),
 
 investigators as (
@@ -33,11 +32,11 @@ study_publication as (
 ),
 
 publication as (
-    select * FROM {{ source('dev_include_access', 'publication') }}
+    select * from {{ source('dev_include_access', 'publication') }}
 ),
 
 pub_exts as (
-    select * FROM {{ source('dev_include_access', 'publication_external_id') }}
+    select * from {{ source('dev_include_access', 'publication_external_id') }}
 ),
 
 joined_source as (
@@ -51,66 +50,74 @@ joined_source as (
         rs.study_description,
         rs.do_id,
 
-    coalesce(
-        jsonb_agg(distinct ext.external_id) filter (where ext.external_id is not null),
-        '[]'::jsonb
-    ) as external_ids,
+        coalesce(
+            jsonb_agg(distinct ext.external_id) filter (
+                where ext.external_id is not null
+            ),
+            '[]'::jsonb
+        ) as external_ids,
 
-    coalesce(
-        jsonb_agg(distinct to_jsonb(inv)) filter (where inv.id is not null),
-        '[]'::jsonb
-    ) as investigators,
+        coalesce(
+            jsonb_agg(distinct to_jsonb(inv)) filter (where inv.id is not null),
+            '[]'::jsonb
+        ) as investigators,
 
-    coalesce(
-        jsonb_agg(distinct to_jsonb(contacts)) filter (where contacts.id is not null),
-        '[]'::jsonb
-    ) as contacts,
+        coalesce(
+            jsonb_agg(distinct to_jsonb(contacts)) filter (
+                where contacts.id is not null
+            ),
+            '[]'::jsonb
+        ) as contacts,
 
-    -- I'm carrying this along, just in case we need it down the line. If we
-    -- do, this will probably change the doi to be inside a jsonb object
-    coalesce(
-        jsonb_agg(distinct to_jsonb(doi_exts)) filter (where doi_exts."DOI_do_id" is not null),
-        '[]'::jsonb
-    ) as doi_exts,
+        -- I'm carrying this along, just in case we need it down the line. If we
+        -- do, this will probably change the doi to be inside a jsonb object
+        coalesce(
+            jsonb_agg(distinct to_jsonb(doi_exts)) filter (
+                where doi_exts."DOI_do_id" is not null
+            ),
+            '[]'::jsonb
+        ) as doi_exts,
 
-    coalesce(
-        jsonb_agg(distinct to_jsonb(pub)) filter (where pub.id is not null),
-        '[]'::jsonb
-    ) as pub,
+        coalesce(
+            jsonb_agg(distinct to_jsonb(pub)) filter (where pub.id is not null),
+            '[]'::jsonb
+        ) as pub,
 
+        coalesce(
+            jsonb_agg(distinct to_jsonb(st_pub)) filter (
+                where st_pub.publication_id is not null
+            ),
+            '[]'::jsonb
+        ) as st_pub,
 
-    coalesce(
-        jsonb_agg(distinct to_jsonb(st_pub)) filter (where st_pub.publication_id is not null),
-        '[]'::jsonb
-    ) as st_pub,
+        coalesce(
+            jsonb_agg(distinct to_jsonb(pub_exts)) filter (
+                where pub_exts.external_id is not null
+            ),
+            '[]'::jsonb
+        ) as pub_exts
 
-    coalesce(
-        jsonb_agg(distinct to_jsonb(pub_exts)) filter (where pub_exts.external_id is not null),
-        '[]'::jsonb
-    ) as pub_exts
-
-    from research_study rs
-    left join external_ids ext
-      on rs.study_id = ext."Study_study_id"
-    left join study_principal_investigators spi
-      on rs.study_id = spi."Study_study_id"
-    left join investigators inv
-      on spi."principal_investigator_id" = inv.id
-    left join study_contact sc
-      on sc."Study_study_id" = rs.study_id
-    left join investigators contacts
-      on sc.contact_id = contacts.id
+    from research_study as rs
+    left join external_ids as ext
+        on rs.study_id = ext."Study_study_id"
+    left join study_principal_investigators as spi
+        on rs.study_id = spi."Study_study_id"
+    left join investigators as inv
+        on spi.principal_investigator_id = inv.id
+    left join study_contact as sc
+        on rs.study_id = sc."Study_study_id"
+    left join investigators as contacts
+        on sc.contact_id = contacts.id
     left join doi
-      on doi.do_id = rs.do_id
+        on rs.do_id = doi.do_id
     left join doi_exts
-      on doi.do_id = doi_exts."DOI_do_id"
-    left join study_publication st_pub
-      on st_pub."Study_study_id" = rs.study_id
-    left join publication pub
-      on pub.id = st_pub.publication_id
+        on doi.do_id = doi_exts."DOI_do_id"
+    left join study_publication as st_pub
+        on rs.study_id = st_pub."Study_study_id"
+    left join publication as pub
+        on st_pub.publication_id = pub.id
     left join pub_exts
-      on pub_exts."Publication_id" = pub.id
-
+        on pub.id = pub_exts."Publication_id"
 
     group by
         rs.study_id,

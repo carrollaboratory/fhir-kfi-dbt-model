@@ -20,16 +20,16 @@ renamed as (
     select
 
         -- ── Identity / Key columns ────────────────────────────────────────────────
-        source.access_policy_id::text    as Id,
+        source.access_policy_id::text as id,
         -- FHIR: Consent.id
         -- Dewrangle Global ID; minted before data lands in the access model.
 
-        source.access_policy_id::text    as Access_policy_id,
+        source.access_policy_id::text as access_policy_id,
         -- FHIR key column (equals id for this model; present on all FHIR models for
         -- cross-resource join support).
 
         -- ── Access accession (optional) ──────────────────────────────────────────
-        source.data_use_accession::text  as data_use_accession,
+        source.data_use_accession::text as data_use_accession,
         -- FHIR: Consent.identifier[0].value
         -- A dbGaP phsID or other URI/CURIE identifying the controlled-access portal
         -- entry for this policy.
@@ -48,7 +48,7 @@ renamed as (
         --     tgt_access_model_AccessPolicy_data_use_modifier (access_policy_id, data_use_modifier)
         --   and a lateral join + jsonb_agg in the FHIR model to build purpose[1..n].
         --   This model handles the single-modifier case only.
-        source.data_use_modifier::text   as data_use_modifier,
+        source.data_use_modifier::text as data_use_modifier,
         -- FHIR: Consent.provision.purpose[1].code  (when present)
         -- DUO modifier CURIE, e.g. "DUO:0000045" (IRB approval required).
 
@@ -61,20 +61,20 @@ renamed as (
         --     disease_limitation_curie  text   (Mondo/OMIM CURIE)
         --     disease_limitation_display text  (human-readable label)
         --   and mapped to a coded Consent extension or provision.condition element.
-        source.disease_limitation::text  as disease_limitation,
+        source.disease_limitation::text as disease_limitation,
         -- FHIR: extension url TODO (disease-limitation extension)
 
         -- ── Access description (optional) ─────────────────────────────────────────
-        source.access_description::text  as access_description,
+        source.access_description::text as access_description,
         -- FHIR: extension url TODO (access-description extension)
 
         -- ── Website (optional) ────────────────────────────────────────────────────
-        source.website::text             as website,
+        source.website::text as website,
         -- FHIR: extension url TODO (website extension)
 
         -- ── Metadata ──────────────────────────────────────────────────────────────
-        current_timestamp                as meta_last_updated,
-        'include'::text                  as _source_system
+        'include'::text as _source_system,
+        current_timestamp as meta_last_updated
 
     from source
 
