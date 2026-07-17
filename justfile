@@ -27,7 +27,13 @@ clean:
 
 [working-directory(PROJECT_DIR)]
 fluffit:
-    uv run sqlfluff fix --force .
+    uv run sqlfluff fix --dialect postgres models
+
+[working-directory(PROJECT_DIR)]
+lintit:
+    uv run sqlfluff lint --dialect postgres models
+
+
 
 [working-directory(PROJECT_DIR)]
 test: flatten-test-data start-pgsql
