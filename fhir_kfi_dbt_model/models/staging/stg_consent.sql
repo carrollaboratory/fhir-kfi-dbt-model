@@ -17,15 +17,14 @@ with source as (
 ),
 
 renamed as (
-
     select
 
         -- ── Identity / Key columns ────────────────────────────────────────────────
-        source.access_policy_id::text    as id,
+        source.access_policy_id::text    as Id,
         -- FHIR: Consent.id
         -- Dewrangle Global ID; minted before data lands in the access model.
 
-        source.access_policy_id::text    as access_policy_id,
+        source.access_policy_id::text    as Access_policy_id,
         -- FHIR key column (equals id for this model; present on all FHIR models for
         -- cross-resource join support).
 
