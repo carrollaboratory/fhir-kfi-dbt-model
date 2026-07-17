@@ -28,9 +28,38 @@ access_content:
     investigator_title: PI
     email: robert.carroll@vumc.org
     access_policy_id: co-ajdm9fyxxz
+  - name: Ann Holmes
+    source_table: investigator
+    id: 234421
+    institution: Vanderbilt University Medical Center
+    email: ann.holmes@vumc.org
+    access_policy_id: co-ajdm9fyxxz
   - study_study_id: sd-7hwpqzc2yr
     principal_investigator_id: 12345
     source_table: study_principal_investigator
+  - Study_study_id: sd-7hwpqzc2yr
+    contact_id: 234421
+    source_table: study_contact
+  - study_id: sd-7hwpqzc2yr
+    source_table: doi
+    bibliographic_reference: TODO-Biblographic-reference
+    access_policy_id: co-ajdm9fyxxz
+    do_id: 10.1738/2024.99p6kxef
+  - source_table: doi_external_id
+    doi_do_id: 10.1738/2024.99p6kxef
+    external_id: DOI-ext-M00!994abf
+  - source_table: publication
+    id: 12345
+    bibliographic_reference: bibliomoo
+    website: https://moocentral-journals/bovina/012366
+    access_policy_id: co-ajdm9fyxxz
+  - source_table: study_publication
+    Study_study_id: sd-7hwpqzc2yr
+    publication_id: 12345
+  - source_table: publication_external_id
+    publication_id: 12345
+    external_id: ext54321
+
 resource_content:
   - id: sd-7hwpqzc2yr
     short_name: M00M00 Study
