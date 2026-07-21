@@ -154,11 +154,11 @@ select
   joined_source.do_id::text as do_id,
   joined_source.study_short_name::text as short_name, -- identifiers[]
   joined_source.study_code::text as study_code, -- identifiers[]??
-  joined_source.acknowledgments::text as acknowledgments,
-  joined_source.website::text as website,
   joined_source.investigators,
   joined_source.contacts,
   joined_source.pub as publications,
+  joined_source.acknowledgments::text as acknowledgments,
+  joined_source.website::text as website,
   joined_source.external_ids,
   joined_source.access_policy_id::text as access_policy_id,
   joined_source.study_title::text as title,

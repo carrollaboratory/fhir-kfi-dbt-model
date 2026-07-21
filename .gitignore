@@ -2,6 +2,7 @@
 # Local flavors
 # ==========================================
 .envrc
+.bash_history_local
 
 # ==========================================
 # dbt Artifacts & Compilation Outputs
