@@ -3,6 +3,75 @@ sources:
 - name: dev_include_access
   description: Database schema containing access policy data.
   tables:
+  - name: include_participant
+    description: Information specific to INCLUDE participants
+    columns:
+    - name: down_syndrome_status
+      description: Down Syndrome status of participant
+      tests:
+      - not_null
+      - accepted_values:
+          arguments:
+            values:
+            - d21
+            - t21
+    - name: subject_id
+      description: INCLUDE Global ID for the Subject
+      tests:
+      - not_null
+      - unique
+      - relationships:
+          arguments:
+            to: source('dev_include_access', 'subject')
+            field: subject_id
+    - name: sex
+      description: Sex of Participant
+      tests:
+      - not_null
+      - accepted_values:
+          arguments:
+            values:
+            - female
+            - male
+            - other
+            - unknown
+    - name: ethnicity
+      description: Ethnicity of Participant
+      tests:
+      - not_null
+      - accepted_values:
+          arguments:
+            values:
+            - hispanic_or_latino
+            - not_hispanic_or_latino
+            - prefer_not_to_answer
+            - unknown
+    - name: age_at_last_vital_status
+      description: Age in days when participant's vital status was last recorded
+    - name: vital_status
+      description: Whether participant is alive or dead
+      tests:
+      - accepted_values:
+          arguments:
+            values:
+            - dead
+            - alive
+    - name: age_at_first_engagement
+      description: Age in days of Participant at first recorded study event (enrollment, visit, observation, sample collection, survey completion, etc.). Age at enrollment is preferred, if available.
+    - name: access_policy_id
+      description: Global identifier for the access policy that applies to this row of data.
+      tests:
+      - relationships:
+          arguments:
+            to: source('dev_include_access', 'access_policy')
+            field: access_policy_id
+    - name: study_id
+      description: INCLUDE Global ID for the study
+      tests:
+      - relationships:
+          arguments:
+            to: source('dev_include_access', 'study')
+            field: study_id
   - name: access_policy
     description: The access policy that describes the controls around use of data
     columns:
@@ -380,7 +449,7 @@ sources:
           arguments:
             to: source('dev_include_access', 'subject')
             field: subject_id
-    - name: relationship_type
+    - name: relationship
       description: Code definting the relationship predicate. Relationship of the "Family Member" to the "Subject", eg, mother of.
       tests:
       - not_null
@@ -870,6 +939,64 @@ sources:
       description: The date that data collection started. May include only a year.
     - name: data_collection_end
       description: The date that data collection started. May include only a year.
+  - name: include_participant_race
+    description: Linking table generated for a multivalued slot on IncludeParticipant.
+    columns:
+    - name: IncludeParticipant_subject_id
+      description: Autocreated FK slot
+      tests:
+      - not_null
+      - relationships:
+          arguments:
+            to: source('dev_include_access', 'include_participant')
+            field: subject_id
+    - name: race
+      description: Race of Participant
+      tests:
+      - not_null
+      - accepted_values:
+          arguments:
+            values:
+            - american_indian_or_alaska_native
+            - asian
+            - black_or_african_american
+            - more_than_one_race
+            - native_hawaiian_or_other_pacific_islander
+            - other
+            - white
+            - prefer_not_to_answer
+            - unknown
+            - east_asian
+            - latin_american
+            - middle_eastern_or_north_african
+            - south_asian
+    tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns:
+          - IncludeParticipant_subject_id
+          - race
+  - name: include_participant_external_id
+    description: Linking table generated for a multivalued slot on IncludeParticipant.
+    columns:
+    - name: IncludeParticipant_subject_id
+      description: Autocreated FK slot
+      tests:
+      - not_null
+      - relationships:
+          arguments:
+            to: source('dev_include_access', 'include_participant')
+            field: subject_id
+    - name: external_id
+      description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
+      tests:
+      - not_null
+    tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns:
+          - IncludeParticipant_subject_id
+          - external_id
   - name: record_external_id
     description: Linking table generated for a multivalued slot on Record.
     columns:

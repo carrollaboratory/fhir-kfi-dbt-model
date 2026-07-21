@@ -39,6 +39,10 @@ pub_exts as (
   select * from {{ source('dev_include_access', 'publication_external_id') }}
 ),
 
+programs as (
+    select * from {{ source('dev_include_access', 'study_program') }}
+),
+
 joined_source as (
   select
     rs.study_id,
@@ -47,7 +51,9 @@ joined_source as (
     rs.access_policy_id,
     rs.study_title,
     rs.parent_study,
+    rs.acknowledgments,
     rs.study_description,
+    rs.citation_statement,
     rs.do_id,
 
     coalesce(
@@ -95,7 +101,14 @@ joined_source as (
         where pub_exts.external_id is not null
       ),
       '[]'::jsonb
-    ) as pub_exts
+    ) as pub_exts,
+
+    coalesce(
+      jsonb_agg(distinct to_jsonb(programs)) filter (
+        where programs.program is not null
+      ),
+      '[]'::jsonb
+    ) as programs
 
   from research_study as rs
   left join external_ids as ext
@@ -118,6 +131,8 @@ joined_source as (
     on st_pub.publication_id = pub.id
   left join pub_exts
     on pub.id = pub_exts."Publication_id"
+  left join programs
+    on programs."Study_study_id" = rs.study_id
 
   group by
     rs.study_id,
@@ -127,7 +142,9 @@ joined_source as (
     rs.study_title,
     rs.parent_study,
     rs.study_description,
-    rs.do_id
+    rs.do_id,
+    rs.citation_statement,
+    rs.acknowledgments
 )
 
 select
@@ -135,6 +152,7 @@ select
   joined_source.do_id::text as do_id,
   joined_source.study_short_name::text as short_name, -- identifiers[]
   joined_source.study_code::text as study_code, -- identifiers[]??
+  joined_source.acknowledgments::text as acknowledgments,
   joined_source.investigators,
   joined_source.contacts,
   joined_source.pub as publications,
@@ -142,5 +160,6 @@ select
   joined_source.access_policy_id::text as access_policy_id,
   joined_source.study_title::text as title,
   joined_source.parent_study::text as part_of,
+  joined_source.citation_statement::text as citation_statement,
   joined_source.study_description::text as description
 from joined_source

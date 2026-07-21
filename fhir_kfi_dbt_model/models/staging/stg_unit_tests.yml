@@ -15,12 +15,20 @@ unit_tests:
         the INCLUDE DCC with data ingestion into the portal by serving as a test study
         with all relevant parts of the INCLUDE data model.
       access_policy_id: co-ajdm9fyxxz
+      acknowledgments: gr00M00M
+      do_id: 10.1738/2024.99p6kxef
   - input: source('dev_include_access', 'study_external_id')
     rows:
     - Study_study_id: sd-7hwpqzc2yr
       external_id: phs000000
     - Study_study_id: sd-7hwpqzc2yr
       external_id: M00M00-01
+  - input: source('dev_include_access', 'study_program')
+    rows:
+    - study_study_id: sd-7hwpqzc2yr
+      program: include
+    - study_study_id: sd-7hwpqzc2yr
+      program: kf
   - input: source('dev_include_access', 'investigator')
     rows:
     - name: Robert Carroll
@@ -69,9 +77,12 @@ unit_tests:
   expect:
     rows:
     - id: sd-7hwpqzc2yr
+      title: Madamoiselle Moo's Marvelous Research Study
       short_name: M00M00 Study
       study_code: M00M00
       access_policy_id: co-ajdm9fyxxz
+      acknowledgments: gr00M00M
+      do_id: 10.1738/2024.99p6kxef
       part_of: null
       description: This project aims to exist for the main purpose of helping the
         INCLUDE DCC with data ingestion into the portal by serving as a test study
