@@ -1,0 +1,88 @@
+name: Research Study to ResearchStudy
+description: Validates the conversion of research study data
+model: stg_research_study
+source_table: study
+
+access_content:
+  - study_id: sd-7hwpqzc2yr
+    source_table: study
+    study_title: Madamoiselle Moo's Marvelous Research Study
+    study_code: M00M00
+    study_short_name: M00M00 Study
+    citation_statement: A citation
+    website: https://m00m00.researchfarms.org/the-study
+    parent_study: null
+    study_description:
+      This project aims to exist for the main purpose of helping the INCLUDE
+      DCC with data ingestion into the portal by serving as a test study with all relevant
+      parts of the INCLUDE data model.
+    access_policy_id: co-ajdm9fyxxz
+    acknowledgments: gr00M00M
+    do_id: 10.1738/2024.99p6kxef
+  - source_table: study_external_id
+    Study_study_id: sd-7hwpqzc2yr
+    external_id: phs000000
+  - source_table: study_external_id
+    Study_study_id: sd-7hwpqzc2yr
+    external_id: M00M00-01
+  - source_table: study_program
+    study_study_id: sd-7hwpqzc2yr
+    program: include
+  - source_table: study_program
+    study_study_id: sd-7hwpqzc2yr
+    program: kf
+  - source_table: investigator
+    name: Robert Carroll
+    id: 12345
+    institution: Vanderbilt University Medical Center
+    investigator_title: PI
+    email: robert.carroll@vumc.org
+    access_policy_id: co-ajdm9fyxxz
+  - source_table: investigator
+    name: Ann Holmes
+    id: 234421
+    institution: Vanderbilt University Medical Center
+    email: ann.holmes@vumc.org
+    access_policy_id: co-ajdm9fyxxz
+  - study_study_id: sd-7hwpqzc2yr
+    principal_investigator_id: 12345
+    source_table: study_principal_investigator
+  - Study_study_id: sd-7hwpqzc2yr
+    contact_id: 234421
+    source_table: study_contact
+  - study_id: sd-7hwpqzc2yr
+    source_table: doi
+    bibliographic_reference: TODO-Biblographic-reference
+    access_policy_id: co-ajdm9fyxxz
+    do_id: 10.1738/2024.99p6kxef
+  - source_table: doi_external_id
+    doi_do_id: 10.1738/2024.99p6kxef
+    external_id: DOI-ext-M00!994abf
+  - source_table: publication
+    id: 12345
+    bibliographic_reference: bibliomoo
+    website: https://moocentral-journals/bovina/012366
+    access_policy_id: co-ajdm9fyxxz
+  - source_table: study_publication
+    Study_study_id: sd-7hwpqzc2yr
+    publication_id: 12345
+  - source_table: publication_external_id
+    publication_id: 12345
+    external_id: ext54321
+
+resource_content:
+  - id: sd-7hwpqzc2yr
+    title: Madamoiselle Moo's Marvelous Research Study
+    short_name: M00M00 Study
+    study_code: M00M00
+    access_policy_id: co-ajdm9fyxxz
+    acknowledgments: gr00M00M
+    citation_statement: A citation
+    website: https://m00m00.researchfarms.org/the-study
+    do_id: 10.1738/2024.99p6kxef
+    part_of: null
+    description:
+      This project aims to exist for the main purpose of helping the INCLUDE
+      DCC with data ingestion into the portal by serving as a test study with all relevant
+      parts of the INCLUDE data model.
+    external_ids: '["M00M00-01", "phs000000"]'

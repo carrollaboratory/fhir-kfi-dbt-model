@@ -1,0 +1,132 @@
+version: 2
+unit_tests:
+- name: Research Study to ResearchStudy
+  description: Validates the conversion of research study data
+  model: stg_research_study
+  given:
+  - input: source('dev_include_access', 'study')
+    rows:
+    - study_id: sd-7hwpqzc2yr
+      study_title: Madamoiselle Moo's Marvelous Research Study
+      study_code: M00M00
+      study_short_name: M00M00 Study
+      citation_statement: A citation
+      website: https://m00m00.researchfarms.org/the-study
+      parent_study: null
+      study_description: This project aims to exist for the main purpose of helping
+        the INCLUDE DCC with data ingestion into the portal by serving as a test study
+        with all relevant parts of the INCLUDE data model.
+      access_policy_id: co-ajdm9fyxxz
+      acknowledgments: gr00M00M
+      do_id: 10.1738/2024.99p6kxef
+  - input: source('dev_include_access', 'study_external_id')
+    rows:
+    - Study_study_id: sd-7hwpqzc2yr
+      external_id: phs000000
+    - Study_study_id: sd-7hwpqzc2yr
+      external_id: M00M00-01
+  - input: source('dev_include_access', 'study_program')
+    rows:
+    - study_study_id: sd-7hwpqzc2yr
+      program: include
+    - study_study_id: sd-7hwpqzc2yr
+      program: kf
+  - input: source('dev_include_access', 'investigator')
+    rows:
+    - name: Robert Carroll
+      id: 12345
+      institution: Vanderbilt University Medical Center
+      investigator_title: PI
+      email: robert.carroll@vumc.org
+      access_policy_id: co-ajdm9fyxxz
+    - name: Ann Holmes
+      id: 234421
+      institution: Vanderbilt University Medical Center
+      email: ann.holmes@vumc.org
+      access_policy_id: co-ajdm9fyxxz
+  - input: source('dev_include_access', 'study_principal_investigator')
+    rows:
+    - study_study_id: sd-7hwpqzc2yr
+      principal_investigator_id: 12345
+  - input: source('dev_include_access', 'study_contact')
+    rows:
+    - Study_study_id: sd-7hwpqzc2yr
+      contact_id: 234421
+  - input: source('dev_include_access', 'doi')
+    rows:
+    - study_id: sd-7hwpqzc2yr
+      bibliographic_reference: TODO-Biblographic-reference
+      access_policy_id: co-ajdm9fyxxz
+      do_id: 10.1738/2024.99p6kxef
+  - input: source('dev_include_access', 'doi_external_id')
+    rows:
+    - doi_do_id: 10.1738/2024.99p6kxef
+      external_id: DOI-ext-M00!994abf
+  - input: source('dev_include_access', 'publication')
+    rows:
+    - id: 12345
+      bibliographic_reference: bibliomoo
+      website: https://moocentral-journals/bovina/012366
+      access_policy_id: co-ajdm9fyxxz
+  - input: source('dev_include_access', 'study_publication')
+    rows:
+    - Study_study_id: sd-7hwpqzc2yr
+      publication_id: 12345
+  - input: source('dev_include_access', 'publication_external_id')
+    rows:
+    - publication_id: 12345
+      external_id: ext54321
+  expect:
+    rows:
+    - id: sd-7hwpqzc2yr
+      title: Madamoiselle Moo's Marvelous Research Study
+      short_name: M00M00 Study
+      study_code: M00M00
+      access_policy_id: co-ajdm9fyxxz
+      acknowledgments: gr00M00M
+      citation_statement: A citation
+      website: https://m00m00.researchfarms.org/the-study
+      do_id: 10.1738/2024.99p6kxef
+      part_of: null
+      description: This project aims to exist for the main purpose of helping the
+        INCLUDE DCC with data ingestion into the portal by serving as a test study
+        with all relevant parts of the INCLUDE data model.
+      external_ids: '["M00M00-01", "phs000000"]'
+- name: Access Policy to Consent
+  description: Validates the conversion of access policy into consent
+  model: stg_consent
+  given:
+  - input: source('dev_include_access', 'access_policy')
+    rows:
+    - access_policy_id: co-ajdm9fyxxz
+      access_description: General Research Use
+      data_use_accession: dbgap:phs000000
+      data_use_permission: DUO:0000042
+      data_use_modifier: DUO:0000045
+      website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
+      disease_limitation: null
+    - access_policy_id: co-t869rg8xx6
+      access_description: General Research Use
+      data_use_accession: dbgap:phs000000
+      data_use_permission: DUO:0000042
+      data_use_modifier: DUO:0000045
+      website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/2
+      disease_limitation: MSH:D012919
+  expect:
+    rows:
+    - id: co-ajdm9fyxxz
+      access_policy_id: co-ajdm9fyxxz
+      data_use_accession: dbgap:phs000000
+      data_use_permission: DUO:0000042
+      data_use_modifier: DUO:0000045
+      disease_limitation: null
+      access_description: General Research Use
+      website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
+    - id: co-t869rg8xx6
+      access_policy_id: co-t869rg8xx6
+      data_use_accession: dbgap:phs000000
+      data_use_permission: DUO:0000042
+      data_use_modifier: DUO:0000045
+      disease_limitation: MSH:D012919
+      access_description: General Research Use
+      website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/2
