@@ -10,6 +10,8 @@ unit_tests:
       study_title: Madamoiselle Moo's Marvelous Research Study
       study_code: M00M00
       study_short_name: M00M00 Study
+      citation_statement: A citation
+      website: https://m00m00.researchfarms.org/the-study
       parent_study: null
       study_description: This project aims to exist for the main purpose of helping
         the INCLUDE DCC with data ingestion into the portal by serving as a test study
@@ -82,6 +84,8 @@ unit_tests:
       study_code: M00M00
       access_policy_id: co-ajdm9fyxxz
       acknowledgments: gr00M00M
+      citation_statement: A citation
+      website: https://m00m00.researchfarms.org/the-study
       do_id: 10.1738/2024.99p6kxef
       part_of: null
       description: This project aims to exist for the main purpose of helping the

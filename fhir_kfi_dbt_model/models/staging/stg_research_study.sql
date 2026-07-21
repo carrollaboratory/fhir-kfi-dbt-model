@@ -52,6 +52,7 @@ joined_source as (
     rs.study_title,
     rs.parent_study,
     rs.acknowledgments,
+    rs.website,
     rs.study_description,
     rs.citation_statement,
     rs.do_id,
@@ -144,6 +145,7 @@ joined_source as (
     rs.study_description,
     rs.do_id,
     rs.citation_statement,
+    rs.website,
     rs.acknowledgments
 )
 
@@ -153,6 +155,7 @@ select
   joined_source.study_short_name::text as short_name, -- identifiers[]
   joined_source.study_code::text as study_code, -- identifiers[]??
   joined_source.acknowledgments::text as acknowledgments,
+  joined_source.website::text as website,
   joined_source.investigators,
   joined_source.contacts,
   joined_source.pub as publications,

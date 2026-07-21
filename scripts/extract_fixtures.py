@@ -109,7 +109,6 @@ def exec(arguments: List[Any] | None = None):
                 }
             )
 
-    print(unit_tests)
     unit_path = cwd / args.project_name / args.unit_filename
     unit_path.parent.mkdir(exist_ok=True, parents=True)
     with unit_path.open("wt") as file:
