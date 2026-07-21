@@ -33,7 +33,9 @@ fluffit:
 lintit:
     uv run sqlfluff lint --dialect postgres models
 
-
+[working-directory(PROJECT_DIR)]
+seed: flatten-test-data start-pgsql
+  uv run dbt seed
 
 [working-directory(PROJECT_DIR)]
 test: flatten-test-data start-pgsql
