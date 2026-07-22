@@ -26,10 +26,10 @@ access_content:
     Study_study_id: sd-7hwpqzc2yr
     external_id: M00M00-01
   - source_table: study_program
-    study_study_id: sd-7hwpqzc2yr
+    Study_study_id: sd-7hwpqzc2yr
     program: include
   - source_table: study_program
-    study_study_id: sd-7hwpqzc2yr
+    Study_study_id: sd-7hwpqzc2yr
     program: kf
   - source_table: investigator
     name: Robert Carroll
@@ -44,9 +44,9 @@ access_content:
     institution: Vanderbilt University Medical Center
     email: ann.holmes@vumc.org
     access_policy_id: co-ajdm9fyxxz
-  - study_study_id: sd-7hwpqzc2yr
+  - source_table: study_principal_investigator
+    Study_study_id: sd-7hwpqzc2yr
     principal_investigator_id: 12345
-    source_table: study_principal_investigator
   - Study_study_id: sd-7hwpqzc2yr
     contact_id: 234421
     source_table: study_contact
@@ -56,7 +56,7 @@ access_content:
     access_policy_id: co-ajdm9fyxxz
     do_id: 10.1738/2024.99p6kxef
   - source_table: doi_external_id
-    doi_do_id: 10.1738/2024.99p6kxef
+    DOI_do_id: 10.1738/2024.99p6kxef
     external_id: DOI-ext-M00!994abf
   - source_table: publication
     id: 12345
@@ -67,8 +67,9 @@ access_content:
     Study_study_id: sd-7hwpqzc2yr
     publication_id: 12345
   - source_table: publication_external_id
-    publication_id: 12345
+    Publication_id: 12345
     external_id: ext54321
+    #Study_study_id: sd-7hwpqzc2yr
 
 resource_content:
   - id: sd-7hwpqzc2yr
