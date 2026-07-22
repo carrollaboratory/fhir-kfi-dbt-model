@@ -3,6 +3,8 @@
 # ==========================================
 .envrc
 .bash_history_local
+.zed/
+junk
 
 # ==========================================
 # dbt Artifacts & Compilation Outputs

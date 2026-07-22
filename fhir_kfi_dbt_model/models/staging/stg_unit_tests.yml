@@ -27,9 +27,9 @@ unit_tests:
       external_id: M00M00-01
   - input: source('dev_include_access', 'study_program')
     rows:
-    - study_study_id: sd-7hwpqzc2yr
+    - Study_study_id: sd-7hwpqzc2yr
       program: include
-    - study_study_id: sd-7hwpqzc2yr
+    - Study_study_id: sd-7hwpqzc2yr
       program: kf
   - input: source('dev_include_access', 'investigator')
     rows:
@@ -46,7 +46,7 @@ unit_tests:
       access_policy_id: co-ajdm9fyxxz
   - input: source('dev_include_access', 'study_principal_investigator')
     rows:
-    - study_study_id: sd-7hwpqzc2yr
+    - Study_study_id: sd-7hwpqzc2yr
       principal_investigator_id: 12345
   - input: source('dev_include_access', 'study_contact')
     rows:
@@ -60,7 +60,7 @@ unit_tests:
       do_id: 10.1738/2024.99p6kxef
   - input: source('dev_include_access', 'doi_external_id')
     rows:
-    - doi_do_id: 10.1738/2024.99p6kxef
+    - DOI_do_id: 10.1738/2024.99p6kxef
       external_id: DOI-ext-M00!994abf
   - input: source('dev_include_access', 'publication')
     rows:
@@ -74,7 +74,7 @@ unit_tests:
       publication_id: 12345
   - input: source('dev_include_access', 'publication_external_id')
     rows:
-    - publication_id: 12345
+    - Publication_id: 12345
       external_id: ext54321
   expect:
     rows:

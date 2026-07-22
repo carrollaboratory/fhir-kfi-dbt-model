@@ -17,7 +17,7 @@ start-pgsql:
 
 create-schema: start-pgsql
   psql service=dbt-test -c "DROP SCHEMA IF EXISTS {{ACCESS_MODEL_SCHEMA}} CASCADE; CREATE SCHEMA {{ACCESS_MODEL_SCHEMA}};"
-  psql service=dbt-test -f tests/fixtures/sql/common-access-model.sql
+  psql service=dbt-test -f tests/fixtures/sql/include_access_model.sql
 
 # [working-directory(PROJECT_DIR)]
 clean:

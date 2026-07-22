@@ -1,0 +1,36 @@
+[sqlfluff]
+dialect = postgres
+templater = jinja
+# templater = dbt
+
+# dbt templating does not keep trailing new lines (L009)
+
+exclude_rules = L009,L033,L031,L016,L037,L042,L027,L035,L034,L029,L048,ST07
+
+verbose = 1
+
+
+#[sqlfluff:indent]
+#tab_space_size = 4
+
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = lower
+
+
+
+[sqlfluff:templater:dbt]
+
+project_dir = dbt_project
+
+target = dev
+
+# If needed, uncomment the line below to specify the directory where your
+
+# profiles.yml file is located
+
+profiles_dir = ~/.dbt/include
+
+
+
+[sqlfluff:indentation]
+tab_space_size = 2
