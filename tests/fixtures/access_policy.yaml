@@ -4,8 +4,8 @@ model: stg_consent
 source_table: access_policy
 
 access_content:
-  - access_policy_id: co-ajdm9fyxxz
-    source_table: access_policy
+  - source_table: access_policy
+    access_policy_id: co-ajdm9fyxxz
     access_description: General Research Use
     data_use_accession: dbgap:phs000000
     data_use_permission: DUO:0000042 # GRU

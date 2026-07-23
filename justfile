@@ -44,4 +44,4 @@ test: flatten-test-data start-pgsql
 [working-directory(PROJECT_DIR)]
 run-pipeline: flatten-test-data start-pgsql
   uv run dbt build
-  uv run python ../scripts/spit-fhir.py
+  uv run python ../scripts/spit-fhir.py --output output/dbt_fhir.json fhir_consent
