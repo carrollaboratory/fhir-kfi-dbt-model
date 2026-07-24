@@ -13,6 +13,9 @@ models:
     meta:
       profiles:
         consent: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
+      extensions:
+        description: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/access-policy-description"
+        website: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/research-web-link"
 
     columns:
       - name: id
