@@ -1,18 +1,15 @@
 version: 2
 
 models:
-  - name: fhir_consent
+  - name: fhir_resource
     description: >
-      FHIR R4 Consent resources derived from stg_consent. One row per AccessPolicy
-      record. The resource column contains the complete FHIR Consent JSON as jsonb,
-      including provision.purpose (DUO codes), optional identifier (accession), and
-      optional extensions for disease_limitation, access_description, and website.
-      This model has no study_id column because AccessPolicy is not scoped to a single
-      study; all other study-linked FHIR models will include study_id.
+      FHIR Resources
 
-    meta:
-      profiles:
-        consent: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - id
+            - resource_type
 
     columns:
       - name: id

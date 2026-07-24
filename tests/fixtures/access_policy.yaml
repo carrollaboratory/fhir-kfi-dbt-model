@@ -6,7 +6,7 @@ source_table: access_policy
 access_content:
   - source_table: access_policy
     access_policy_id: co-ajdm9fyxxz
-    access_description: General Research Use
+    access_description: This access policy is specifically for General Research Use
     data_use_accession: dbgap:phs000000
     data_use_permission: DUO:0000042 # GRU
     data_use_modifier: DUO:0000045 # Not-profit
@@ -14,7 +14,7 @@ access_content:
     disease_limitation: null
   - access_policy_id: co-t869rg8xx6
     source_table: access_policy
-    access_description: General Research Use
+    access_description: This access policy is also specifically for General Research Use
     data_use_accession: dbgap:phs000000
     data_use_permission: DUO:0000042 # GRU
     data_use_modifier: DUO:0000045 # Not-profit
@@ -27,7 +27,7 @@ resource_content:
     data_use_permission: DUO:0000042
     data_use_modifier: DUO:0000045
     disease_limitation: null
-    access_description: General Research Use
+    access_description: This access policy is specifically for General Research Use
     website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/
   - id: co-t869rg8xx6
     access_policy_id: co-t869rg8xx6
@@ -35,5 +35,5 @@ resource_content:
     data_use_permission: DUO:0000042
     data_use_modifier: DUO:0000045
     disease_limitation: MSH:D012919 #"Social Behavior"
-    access_description: General Research Use
+    access_description: This access policy is also specifically for General Research Use
     website: https://carrollaboratory.github.io/kfi-fhir-input/elements/website/2
