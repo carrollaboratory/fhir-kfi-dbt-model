@@ -16,6 +16,8 @@
 --       verify against NCPI IG2 Consent profile).
 -- TODO: confirm accession identifier system URI (varies: dbGaP, etc.).
 
+{{ config(materialized='ephemeral') }}
+
 {% set meta_extensions = model.meta.get('extensions', {}) %}
 {% set description_url = meta_extensions.get('description') %}
 {% set website_url = meta_extensions.get('website') %}
@@ -89,4 +91,9 @@ built as (
         on stg.data_use_permission = map.local_code
 )
 
-select * from built
+select
+  id,
+  resource_type,
+  access_policy_id,
+  resource
+from built

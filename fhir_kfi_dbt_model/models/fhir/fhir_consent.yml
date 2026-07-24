@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: fhir_consent
+    meta:
+      profiles:
+        consent: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
+      extensions:
+        description: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/access-policy-description"
+        website: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/research-web-link"
+
+    columns:
+      - name: id
+        description: >
+          FHIR Consent.id. Equals access_policy_id. Minted by Dewrangle (coGlobalID).
+        tests:
+          - not_null
+          - unique
+
+      - name: resource_type
+        description: Hardcoded string 'Consent'.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Consent"]
+
+      - name: access_policy_id
+        description: >
+          Access policy key column. Equals id for this model. Present on all FHIR models
+          to support cross-resource joins and extraction filtering.
+        tests:
+          - not_null
+          - unique
+
+      - name: resource
+        description: >
+          Full FHIR R4 Consent resource as jsonb. Structure:
+            resourceType, id, meta (lastUpdated + profile), status (always "active"),
+            scope (research), category (v3-ActCode RESEARCH), provision (type "permit"
+            + purpose array of DUO codes), and conditionally: identifier (accession),
+            extension (disease_limitation, access_description, website).
+          Profile URL and extension URLs contain TODO placeholders until confirmed by IG team.
+        tests:
+          - not_null
