@@ -36,11 +36,6 @@ models:
 
       - name: resource
         description: >
-          Full FHIR R4 Consent resource as jsonb. Structure:
-            resourceType, id, meta (lastUpdated + profile), status (always "active"),
-            scope (research), category (v3-ActCode RESEARCH), provision (type "permit"
-            + purpose array of DUO codes), and conditionally: identifier (accession),
-            extension (disease_limitation, access_description, website).
-          Profile URL and extension URLs contain TODO placeholders until confirmed by IG team.
+          Full FHIR R4 Consent resource as jsonb.
         tests:
           - not_null
