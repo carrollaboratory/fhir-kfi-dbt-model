@@ -55,10 +55,8 @@ built as (
                     'type', 'permit',
                     'purpose', (
                         jsonb_build_array(
-                            jsonb_build_object(
-                                'coding', {{ render_combined_coding('stg', 'data_use_permission', 'data_use_modifier', 'disease_limitation') }}
+                                {{ render_combined_coding('stg', 'data_use_permission', 'data_use_modifier', 'disease_limitation') }}
                             )
-                        )
                     )
                 ),
 
