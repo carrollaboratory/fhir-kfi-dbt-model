@@ -54,9 +54,7 @@ built as (
                 'provision', jsonb_build_object(
                     'type', 'permit',
                     'purpose', (
-                        jsonb_build_array(
                                 {{ render_combined_coding('stg', 'data_use_permission', 'data_use_modifier', 'disease_limitation') }}
-                            )
                     )
                 ),
 
