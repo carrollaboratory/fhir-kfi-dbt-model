@@ -4,8 +4,8 @@ model: stg_research_study
 source_table: study
 
 access_content:
-  - study_id: sd-7hwpqzc2yr
-    source_table: study
+  - source_table: study
+    study_id: sd-7hwpqzc2yr
     study_title: Madamoiselle Moo's Marvelous Research Study
     study_code: M00M00
     study_short_name: M00M00 Study
