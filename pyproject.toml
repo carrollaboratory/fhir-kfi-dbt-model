@@ -16,3 +16,11 @@ packages = ["scripts"]
 
 [tool.uv]
 package = true
+
+[tool.uv.sources]
+spit-fhir = { git = "https://github.com/carrollaboratory/spit-fhir" }
+
+[dependency-groups]
+dev = [
+    "spit-fhir",
+]

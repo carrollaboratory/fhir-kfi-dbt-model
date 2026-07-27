@@ -3,18 +3,10 @@
 -- FHIR R4 resource type: Consent
 -- Source model: stg_consent
 --
--- The following Access Policy fields remain unclear in how they should be
--- used in FHIR
---  data_use_accession - This doesn't really seem like an identifier
 --
 -- Each row is one FHIR Consent resource representing an INCLUDE Access Policy.
 -- The resource column contains the complete FHIR R4 Consent JSON as jsonb.
---
--- TODO: confirm IG Consent profile canonical URL with IG team; replace all
---       'TODO: profile URL' and 'TODO: ig-extension-url/...' placeholders.
--- TODO: confirm DUO system URI (http://purl.obolibrary.org/obo/duo.owl is standard;
---       verify against NCPI IG2 Consent profile).
--- TODO: confirm accession identifier system URI (varies: dbGaP, etc.).
+
 
 {{ config(materialized='ephemeral') }}
 
@@ -63,10 +55,8 @@ built as (
                     'type', 'permit',
                     'purpose', (
                         jsonb_build_array(
-                            jsonb_build_object(
-                                'coding', {{ render_combined_coding('stg', 'data_use_permission', 'data_use_modifier', 'disease_limitation') }}
+                                {{ render_combined_coding('stg', 'data_use_permission', 'data_use_modifier', 'disease_limitation') }}
                             )
-                        )
                     )
                 ),
 
