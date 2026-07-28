@@ -26,11 +26,11 @@ clean:
   rm -rf {{PROJECT_DIR}}/target/ {{PROJECT_DIR}}/logs/
 
 [working-directory(PROJECT_DIR)]
-fluffit:
+fluffit: run-pipeline
     uv run sqlfluff fix --dialect postgres models
 
 [working-directory(PROJECT_DIR)]
-lintit:
+lintit: run-pipeline
     uv run sqlfluff lint --dialect postgres models
 
 [working-directory(PROJECT_DIR)]

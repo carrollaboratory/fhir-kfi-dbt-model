@@ -40,7 +40,7 @@ pub_exts as (
 ),
 
 programs as (
-    select * from {{ source('dev_include_access', 'study_program') }}
+  select * from {{ source('dev_include_access', 'study_program') }}
 ),
 
 joined_source as (
@@ -133,7 +133,7 @@ joined_source as (
   left join pub_exts
     on pub.id = pub_exts."Publication_id"
   left join programs
-    on programs."Study_study_id" = rs.study_id
+    on rs.study_id = programs."Study_study_id"
 
   group by
     rs.study_id,
