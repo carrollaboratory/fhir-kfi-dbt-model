@@ -5,6 +5,8 @@
 .bash_history_local
 .zed/
 junk
+output/log.txt
+fhir_kfi_dbt_model/output/
 
 # ==========================================
 # dbt Artifacts & Compilation Outputs
