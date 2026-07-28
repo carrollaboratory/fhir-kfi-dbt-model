@@ -1,7 +1,13 @@
 [sqlfluff]
 dialect = postgres
-templater = jinja
-# templater = dbt
+# templater = jinja
+templater = dbt
+
+# Gotta go deep for these postgres jsonb things. For now, I'm using a
+# reasonable depth. The necessary depth will depend on parent + child
+# combos, so a really deep or a really long object can exceed this in the
+# future. You can turn this off entirely by setting it to 0.
+max_parse_depth = 500
 
 # dbt templating does not keep trailing new lines (L009)
 
@@ -20,15 +26,15 @@ extended_capitalisation_policy = lower
 
 [sqlfluff:templater:dbt]
 
-project_dir = dbt_project
-
+project_dir = ./fhir_kfi_dbt_model
+profile = fhir_kfi_dbt_model
+profiles_dir = /home/torstees/.dbt
 target = dev
 
 # If needed, uncomment the line below to specify the directory where your
 
 # profiles.yml file is located
 
-profiles_dir = ~/.dbt/include
 
 
 

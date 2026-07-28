@@ -32,51 +32,57 @@ with staged as (
 ),
 
 built as (
-    select
-        -- ── Search / key columns ──────────────────────────────────────────────────
-        id::text as id,
-        'Consent'::text as resource_type,
-        access_policy_id::text as access_policy_id,
+  select
+    -- ── Search / key columns ──────────────────────────────────────────────────
+    id::text as id,
+    'Consent'::text as resource_type,
+    access_policy_id::text as access_policy_id,
 
-        -- ── FHIR resource ─────────────────────────────────────────────────────────
-        jsonb_strip_nulls(
-            jsonb_build_object(
-                'resourceType', 'Consent',
-                'id', id,
-                'meta', jsonb_build_object(
-                    'lastUpdated', to_char( meta_last_updated, 'YYYY-MM-DD"T"HH24:MI:SS"Z"' ),
-                    'profile', jsonb_build_array( '{{ model.config.meta.profiles.consent }}' )
-                ),
-                'status', 'active',
-                'scope', '{ "coding": [ { "system": "http://hl7.org/fhir/ValueSet/consent-scope", "code": "research", "display": "Research" } ] }'::jsonb,
-                'category', '[ { "coding" : [ { "system" : "http://terminology.hl7.org/CodeSystem/consentcategorycodes", "code" : "research", "display" : "Research Information Access" } ] } ]'::jsonb,
+    -- ── FHIR resource ─────────────────────────────────────────────────────────
+    jsonb_strip_nulls(
+      jsonb_build_object(
+        'resourceType', 'Consent',
+        'id', id,
+        'meta', jsonb_build_object(
+          'lastUpdated', to_char( meta_last_updated, 'YYYY-MM-DD"T"HH24:MI:SS"Z"' ),
+          'profile', jsonb_build_array( '{{ model.config.meta.profiles.consent }}' )
+        ),
+        'status', 'active',
+        'scope', '{ "coding": [ { "system": "http://hl7.org/fhir/ValueSet/consent-scope", "code": "research", "display": "Research" } ] }'::jsonb,
+        'category', '[ { "coding" : [ { "system" : "http://terminology.hl7.org/CodeSystem/consentcategorycodes", "code" : "research", "display" : "Research Information Access" } ] } ]'::jsonb,
 
-                'provision', jsonb_build_object(
-                    'type', 'permit',
-                    'purpose', (
-                                {{ render_combined_coding('stg', 'data_use_permission', 'data_use_modifier', 'disease_limitation') }}
-                    )
-                ),
+        'provision', jsonb_build_object(
+          'type', 'permit',
+          'purpose', (
+            {{ render_combined_coding('stg', 'data_use_permission', 'data_use_modifier', 'disease_limitation') }}
+          )
+        ),
 
-                'extension', (
-                    (case when access_description is not null then
-                        jsonb_build_array(
-                            jsonb_build_object( 'url', '{{ description_url }}', 'valueMarkdown', access_description )
-                        )
-                     else '[]'::jsonb end)
-                    ||
-                    (case when website is not null then
-                        jsonb_build_array(
-                            jsonb_build_object( 'url', '{{ website_url }}', 'valueUrl', website )
-                        )
-                     else '[]'::jsonb end)
+        'extension', (
+          (case
+            when access_description is not null
+              then
+                jsonb_build_array(
+                  jsonb_build_object( 'url', '{{ description_url }}', 'valueMarkdown', access_description )
                 )
-            )
-        ) as resource
+            else '[]'::jsonb
+          end)
+          ||
+          (case
+            when website is not null
+              then
+                jsonb_build_array(
+                  jsonb_build_object( 'url', '{{ website_url }}', 'valueUrl', website )
+                )
+            else '[]'::jsonb
+          end)
+        )
+      )
+    ) as resource
 
-    from staged AS stg
-    left join {{ ref('concept_mappings') }} as map
-        on stg.data_use_permission = map.local_code
+  from staged as stg
+  left join {{ ref('concept_mappings') }} as map
+    on stg.data_use_permission = map.local_code
 )
 
 select

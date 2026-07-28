@@ -9,6 +9,7 @@ dependencies = [
     "psycopg[binary]>=3.3.4",
     "rich>=15.0.0",
     "sqlfluff>=4.2.2",
+    "sqlfluff-templater-dbt>=4.2.2",
 ]
 
 [tool.setuptools]
