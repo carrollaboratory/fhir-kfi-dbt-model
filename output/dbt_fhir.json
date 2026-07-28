@@ -10,7 +10,7 @@
           "profile": [
             "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
           ],
-          "lastUpdated": "2026-07-27T23:10:17Z"
+          "lastUpdated": "2026-07-28T14:23:28Z"
         },
         "scope": {
           "coding": [
@@ -71,7 +71,7 @@
           "profile": [
             "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
           ],
-          "lastUpdated": "2026-07-27T23:10:17Z"
+          "lastUpdated": "2026-07-28T14:23:28Z"
         },
         "scope": {
           "coding": [
