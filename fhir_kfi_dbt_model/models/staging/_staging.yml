@@ -4,6 +4,7 @@ models:
   - name: stg_consent
     description: >
       Access Policy staging model for FHIR consent resources.
+
     columns:
       - name: id
         description: >
