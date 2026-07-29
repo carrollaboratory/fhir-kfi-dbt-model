@@ -2,6 +2,8 @@ _ensure_min_just_version := `min="1.51.0"; cur="$(just --version | cut -d' ' -f2
 PROJECT_DIR := "fhir_kfi_dbt_model"
 export ACCESS_MODEL_SCHEMA := "dev_include_access"
 
+help:
+  just --list
 
 # Let's just default to running the unit tests. We may bump this up to the fhir
 # stuff by default later, but this should be a good starting point.

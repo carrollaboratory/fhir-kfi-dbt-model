@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: stg_research_study
+    description: >
+      Study staging model for research study resources
+    meta:
+      include:
+        system_prefix: "https://includedcc.org/fhir/"
+        global_id_prefix: "https://dewrangle.com/includedcc"
+
+    columns:
+      - name: id
+        description: Research study global ID. Same as study_id
+        tests:
+          - not_null
+          - unique
+      - name: study_id
+        description: INCLUDE Global ID for the study
+      - name: study_id_system
+        description: FHIR system for Dewrangle ID identifer
+      - name: study_code
+        description: Unique identifier for the study (generally a short acronym)
+        tests:
+          - not_null
+      - name: study_code_system
+        description: FHIR system for study_code identifier
+      - name: study_title
+        description: Full Study Title
+        tests:
+          - not_null
+      - name: study_short_name
+        description: Short name for the study
+      - name: acknowledgements
+        description: Funding statement and acknowledgments for this study
+      - name: website
+        description: Website with more information about this entity
+      - name: study_description
+        description: Brief description of the study (2-4 sentences)
+        tests:
+          - not_null
+      - name: parent_study
+        description: The parent study for this study, if it is a nested study
+      - name: citation_statement
+        description: Statement that secondary data users should use to acknowledge use of this study or dataset
+      - name: do_id
+        description: Digital Object Identifier (DOI) for this Record
+      - name: access_policy_id
+        description: >
+          Access Policy Global ID.
+        tests:
+          - not_null
+          - unique
+      - name: program
+        description: words
+      - name: external_ids
+        description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
+      - name: investigators
+        description: The Principal Investigator(s) responsible for the study
+      - name: contacts
+        description: The individual to contact with questions about this record

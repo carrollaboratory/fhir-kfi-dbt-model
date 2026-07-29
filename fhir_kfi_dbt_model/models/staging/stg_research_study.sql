@@ -1,3 +1,10 @@
+-- Research Study
+
+{% set meta_extensions = config.meta_get('include', {}) %}
+{% set system_prefix = meta_extensions.get('system_prefix') %}
+{% set global_id_prefix = meta_extensions.get('global_id_prefix') %}
+
+
 with research_study as (
   select * from {{ source('dev_include_access', 'study') }}
 ),
@@ -46,8 +53,11 @@ programs as (
 joined_source as (
   select
     rs.study_id,
+    '{{ global_id_prefix}}/' || rs.study_id as study_id_system,
     rs.study_short_name,
+    '{{ system_prefix}}/' || rs.study_short_name as study_short_name_system,
     rs.study_code,
+    '{{ system_prefix}}/' || rs.study_code || '/researchstudy' as study_code_system,
     rs.access_policy_id,
     rs.study_title,
     rs.parent_study,

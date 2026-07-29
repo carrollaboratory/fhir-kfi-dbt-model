@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: fhir_researchstudy
+    meta:
+      profiles:
+        study: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-study"
+      extensions:
+        study_design: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/research-study-design"
+        study_associated_party: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/research-study-associated-party"
+        research_study_acknowledgement: "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/research-study-acknowledgement"
+
+    columns:
+      - name: id
+        description: >
+          FHIR ResearchStudy.id (dewrangle global ID)
+        tests:
+          - not_null
+          - unique
+
+      - name: resource_type
+        description: Hardcoded string 'ResearchStudy'.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["ResearchStudy"]
+
+      - name: access_policy_id
+        description: >
+          Access policy key column.
+        tests:
+          - not_null
+          - unique
+
+      - name: resource
+        description: >
+          Full FHIR R4 ResearchStudy resource as jsonb.
+        tests:
+          - not_null
