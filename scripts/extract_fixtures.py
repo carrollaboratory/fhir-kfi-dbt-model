@@ -1,17 +1,36 @@
+import io
 import logging
-import pdb
 from argparse import ArgumentParser
 from collections import defaultdict
-from csv import DictReader, DictWriter
+from csv import DictWriter
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 import yaml
 
+
+# The following trick should allow the correct formatting of CSV data inline
+# as unit test YAMLs...
+class LiteralString(str):
+    pass
+
+
+def literal_presenter(dumper, data):
+    clean_data = data.strip() + "\n"
+    if "\n" in clean_data:
+        return dumper.represent_scalar("tag:yaml.org,2002:str", clean_data, style="|")
+    return dumper.represent_scalar("tag:yaml.org,2002:str", clean_data)
+
+
+yaml.add_representer(LiteralString, literal_presenter)
+
 from scripts import init_logging
 
+logger = logging.getLogger(__name__)
 
-def dump_to_csv(csv_filename: Path, content: List[Dict[str, Any]]):
+
+def dump_to_csv(csv_filename: Path, content: list[dict[str, Any]]):
     if content:
         headers = content[0].keys()
 
@@ -20,10 +39,10 @@ def dump_to_csv(csv_filename: Path, content: List[Dict[str, Any]]):
             writer.writeheader()
             writer.writerows(content)
 
-        logging.info(f"Written: {csv_filename} ")
+        logger.info(f"Written: {csv_filename} ")
 
 
-def exec(arguments: List[Any] | None = None):
+def exec(arguments: list[Any] | None = None):
     cwd = Path(".").absolute()
 
     default_project = cwd.stem.replace("-", "_")
@@ -69,7 +88,7 @@ def exec(arguments: List[Any] | None = None):
     unit_tests = {"version": 2, "unit_tests": []}
 
     for yaml_filename in Path(args.fixtures_dir).glob("*.yaml"):
-        logging.info(f"Extracting data from {yaml_filename}")
+        logger.info(f"Extracting data from {yaml_filename}")
         # csv_filename = Path(args.seed) / f"{yaml_filename.stem}.csv"
 
         data = yaml.safe_load(yaml_filename.open("rt"))
@@ -84,11 +103,32 @@ def exec(arguments: List[Any] | None = None):
                 {k: v for k, v in content.items() if k != "source_table"}
             )
 
+        @dataclass
+        class SeedFixturePair:
+            seed_filename: str = ""
+            mock_fixture_fn: str = ""
+
+        dbt_fixtures = Path(args.project_name) / "tests/fixtures"
+        mock_fixtures = {}
         for table, table_data in access_content.items():
             filename = Path(args.seed) / f"{table}.csv"
             dump_to_csv(filename, table_data)
-            logging.info(filename)
+            mock_fixtures[table] = f"mock_{table}"
 
+            mock_fixture_fn = (
+                Path(args.project_name)
+                / f"tests/fixtures/{data['model']}/{mock_fixtures[table]}.csv"
+            )
+
+            mock_fixture_fn.parent.mkdir(exist_ok=True, parents=True)
+            mock_fixture_fn.unlink(missing_ok=True)
+            mock_fixture_fn.symlink_to(filename)
+            logger.info(filename)
+
+        mock_expected_fn = (
+            dbt_fixtures / f"{data['model']}/mock_results_{data['model']}.csv"
+        )
+        dump_to_csv(mock_expected_fn, data.get("resource_content"))
         # Now we'll prepare the unit test content for this one:
         unit_tests["unit_tests"].append(
             {
@@ -96,16 +136,35 @@ def exec(arguments: List[Any] | None = None):
                 "description": data["description"],
                 "model": data["model"],
                 "given": [],
-                "expect": {"rows": data.get("resource_content")},
+                "expect": {
+                    "format": "csv",
+                    "fixture": f"mock_results_{data['model']}",
+                },
+                # "expect": {"rows": data.get("resource_content")},
             }
         )
         print(f"The length of unit tests: {len(unit_tests['unit_tests'])}")
 
         for table, table_data in access_content.items():
+            # Let's invert these to look more like CSV data to bypass
+            # the include as jinja keyword issue
+            header = table_data[0].keys()
+            buffer = io.StringIO()
+            writer = DictWriter(buffer, fieldnames=header, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(table_data)
+            test_data = (
+                buffer.getvalue().strip().replace(",include", ",\"{{ 'include' }}\"")
+            )
+            # test_data = textwrap.indent(test_data, " " * 10)
+
+            logger.info(test_data)
             unit_tests["unit_tests"][-1]["given"].append(
                 {
                     "input": f"source('dev_include_access', '{table}')",
-                    "rows": table_data,
+                    "format": "csv",
+                    "fixture": mock_fixtures[table],
+                    # "rows": LiteralString(test_data),
                 }
             )
 
@@ -113,7 +172,7 @@ def exec(arguments: List[Any] | None = None):
     unit_path.parent.mkdir(exist_ok=True, parents=True)
     with unit_path.open("wt") as file:
         yaml.dump(unit_tests, file, default_flow_style=False, sort_keys=False)
-    logging.info(f"Unit tests written to '{unit_path}'")
+    logger.info(f"Unit tests written to '{unit_path}'")
 
 
 if __name__ == "__main__":
