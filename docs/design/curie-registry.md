@@ -38,8 +38,9 @@ This confirms the registry needs to scale to ~20 class-scoped files, not the 2�
 Two repositories, loosely coupled through GitHub Releases rather than a submodule — the registry is compiled *data*, not source this project builds from, and the consuming side (this repo, and future consumers) should be able to pin a version without depending on the registry repo's toolchain.
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph registry["carrollaboratory/curie-registry"]
+        direction TB
         yaml["registry/*.yaml\n(one file per class)"]
         ci["CI: validate on PR\n(schema + uniqueness + completeness)"]
         rel["release.yml: on tag push\ncompile → CSV → GitHub Release asset"]
@@ -47,6 +48,7 @@ flowchart LR
     end
 
     subgraph dbtrepo["fhir-kfi-dbt-model (this repo)"]
+        direction LR
         pin[".curie-registry-version\n(pinned tag)"]
         fetch["just fetch-curie-registry\n(gh release download)"]
         seed["seeds/prefix_fhir_systems.csv"]
@@ -54,7 +56,7 @@ flowchart LR
         pin --> fetch --> seed --> stg
     end
 
-    rel -. "pinned release asset" .-> fetch
+    registry -. "pinned release asset" .-> dbtrepo
 ```
 
 ## Registry repo layout
