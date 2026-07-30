@@ -1,0 +1,3 @@
+- [Home](/)
+- Design
+  - [Curie → FHIR System Registry](design/curie-registry.md)
