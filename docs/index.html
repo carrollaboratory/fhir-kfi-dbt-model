@@ -25,5 +25,17 @@
   <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-mermaid@2/dist/docsify-mermaid.js"></script>
+  <script>
+    // docsify-mermaid's own auto-init hook is unreliable (unmaintained plugin,
+    // races against docsify's route render), so trigger mermaid explicitly
+    // after every page render instead of depending on it.
+    window.$docsify.plugins = [].concat(function (hook) {
+      hook.doneEach(function () {
+        if (window.mermaid) {
+          window.mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        }
+      });
+    }, window.$docsify.plugins || []);
+  </script>
 </body>
 </html>
