@@ -44,9 +44,29 @@ test: flatten-test-data start-pgsql
   uv run dbt test --select "test_type:unit"
 
 
+show-resources:
+  #!/usr/bin/env bash
+  psql <<EOF
+    SELECT
+      id,
+      resource_type,
+      access_policy_id
+    FROM
+      dev_include_access.fhir_resource
+    EOF
+
 [working-directory(PROJECT_DIR)]
 run-pipeline: flatten-test-data start-pgsql
   uv run dbt build
+  just show-resources
   uv run python ../scripts/spit-fhir.py --output ../output/dbt_fhir.json fhir_resource
+
+spit-fhir:
+  uv run spit-fhir tests/spitfhir.yaml --schema {{ACCESS_MODEL_SCHEMA}}
+
 validate-fhir: run-pipeline
-  uv run spit-fhir tests/spitfhir.yaml
+  just spit-fhir
+
+[working-directory(PROJECT_DIR)]
+dbtdeps:
+  uv run dbt deps

@@ -4,7 +4,7 @@ db:
   uri: postgresql+psycopg://postgres@localhost/postgres
 
   # For now, we have only one table for these
-  table: fhir_resources
+  table: fhir_resource
 
   # Column names, in case they ever diverge from the dbt convention.
   id_column: id

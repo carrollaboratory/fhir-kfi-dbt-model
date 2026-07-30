@@ -61,6 +61,15 @@ wheels = [
 ]
 
 [[package]]
+name = "car-utils"
+version = "0.1.dev8+g3771e3da4"
+source = { git = "https://github.com/carrollaboratory/car-utils#3771e3da4ecf836b6ddf552894b223d36bd8a24a" }
+dependencies = [
+    { name = "requests" },
+    { name = "sqlalchemy" },
+]
+
+[[package]]
 name = "certifi"
 version = "2026.6.17"
 source = { registry = "https://pypi.org/simple" }
@@ -356,6 +365,7 @@ dependencies = [
     { name = "httpx" },
     { name = "psycopg", extra = ["binary"] },
     { name = "rich" },
+    { name = "spit-fhir" },
     { name = "sqlfluff" },
     { name = "sqlfluff-templater-dbt" },
 ]
@@ -372,6 +382,7 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.3.4" },
     { name = "rich", specifier = ">=15.0.0" },
+    { name = "spit-fhir", git = "https://github.com/carrollaboratory/spit-fhir" },
     { name = "sqlfluff", specifier = ">=4.2.2" },
     { name = "sqlfluff-templater-dbt", specifier = ">=4.2.2" },
 ]
@@ -1153,9 +1164,10 @@ wheels = [
 
 [[package]]
 name = "spit-fhir"
-version = "0.1.dev6+g047f6e9c3"
-source = { git = "https://github.com/carrollaboratory/spit-fhir#047f6e9c381b8491cd6f3a04a8f8d2825d0f5157" }
+version = "0.1.dev17+gef73bd25c"
+source = { git = "https://github.com/carrollaboratory/spit-fhir#ef73bd25c72416200c1eb2e27c64198c69965dd0" }
 dependencies = [
+    { name = "car-utils" },
     { name = "fhir-resources" },
     { name = "ncpi-fhir-client" },
     { name = "psycopg", extra = ["binary"] },

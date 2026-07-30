@@ -10,7 +10,7 @@
           "profile": [
             "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
           ],
-          "lastUpdated": "2026-07-28T15:33:00Z"
+          "lastUpdated": "2026-07-30T20:59:30Z"
         },
         "scope": {
           "coding": [
@@ -71,7 +71,7 @@
           "profile": [
             "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
           ],
-          "lastUpdated": "2026-07-28T15:33:00Z"
+          "lastUpdated": "2026-07-30T20:59:30Z"
         },
         "scope": {
           "coding": [
@@ -120,6 +120,38 @@
           ]
         },
         "resourceType": "Consent"
+      }
+    },
+    {
+      "id": "sd-7hwpqzc2yr",
+      "resource_type": "ResearchStudy",
+      "access_policy_id": "co-ajdm9fyxxz",
+      "resource": {
+        "id": "sd-7hwpqzc2yr",
+        "meta": {
+          "profile": [
+            ""
+          ]
+        },
+        "status": "completed",
+        "identifier": [
+          {
+            "value": "sd-7hwpqzc2yr",
+            "system": "https://dewrangle.com/includedcc/sd-7hwpqzc2yr"
+          },
+          {
+            "value": "M00M00",
+            "system": "https://includedcc.org/fhir//M00M00/researchstudy"
+          },
+          {
+            "value": "DBGAP:phs000000",
+            "system": "https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id="
+          },
+          {
+            "value": "M00M00-01"
+          }
+        ],
+        "resourceType": "ResearchStudy"
       }
     }
   ]

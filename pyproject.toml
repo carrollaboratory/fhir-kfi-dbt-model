@@ -8,6 +8,7 @@ dependencies = [
     "httpx>=0.28.1",
     "psycopg[binary]>=3.3.4",
     "rich>=15.0.0",
+    "spit-fhir",
     "sqlfluff>=4.2.2",
     "sqlfluff-templater-dbt>=4.2.2",
 ]

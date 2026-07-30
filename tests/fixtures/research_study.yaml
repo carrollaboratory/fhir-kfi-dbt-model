@@ -21,7 +21,7 @@ access_content:
     do_id: 10.1738/2024.99p6kxef
   - source_table: study_external_id
     Study_study_id: sd-7hwpqzc2yr
-    external_id: phs000000
+    external_id: DBGAP:phs000000
   - source_table: study_external_id
     Study_study_id: sd-7hwpqzc2yr
     external_id: M00M00-01
