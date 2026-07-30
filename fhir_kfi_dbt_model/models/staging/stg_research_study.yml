@@ -25,21 +25,25 @@ models:
           - not_null
       - name: study_code_system
         description: FHIR system for study_code identifier
-      - name: study_title
+      - name: title
         description: Full Study Title
         tests:
           - not_null
-      - name: study_short_name
+      - name: short_name
         description: Short name for the study
       - name: acknowledgements
         description: Funding statement and acknowledgments for this study
       - name: website
         description: Website with more information about this entity
-      - name: study_description
+      - name: description
         description: Brief description of the study (2-4 sentences)
         tests:
           - not_null
-      - name: parent_study
+      - name: status
+        description: Convey the current status of the research study.
+        tests:
+          - not_null
+      - name: part_of
         description: The parent study for this study, if it is a nested study
       - name: citation_statement
         description: Statement that secondary data users should use to acknowledge use of this study or dataset
@@ -55,7 +59,5 @@ models:
         description: words
       - name: external_ids
         description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
-      - name: investigators
-        description: The Principal Investigator(s) responsible for the study
       - name: contacts
         description: The individual to contact with questions about this record

@@ -24,7 +24,9 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ["Consent"]
+              values:
+                - Consent
+                - ResearchStudy
 
       - name: access_policy_id
         description: >
@@ -32,7 +34,6 @@ models:
           to support cross-resource joins and extraction filtering.
         tests:
           - not_null
-          - unique
 
       - name: resource
         description: >

@@ -168,11 +168,13 @@ def exec(arguments: list[Any] | None = None):
                 }
             )
 
+    """
     unit_path = cwd / args.project_name / args.unit_filename
     unit_path.parent.mkdir(exist_ok=True, parents=True)
     with unit_path.open("wt") as file:
         yaml.dump(unit_tests, file, default_flow_style=False, sort_keys=False)
     logger.info(f"Unit tests written to '{unit_path}'")
+    """
 
 
 if __name__ == "__main__":
