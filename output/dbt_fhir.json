@@ -10,7 +10,7 @@
           "profile": [
             "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
           ],
-          "lastUpdated": "2026-07-30T20:59:30Z"
+          "lastUpdated": "2026-08-03T21:24:57Z"
         },
         "scope": {
           "coding": [
@@ -49,12 +49,12 @@
             {
               "code": "0000042",
               "system": "http://purl.obolibrary.org/obo/DUO_",
-              "display": "This data use permission indicates that use is allowed for general research use for any research purpose.\nThis includes but is not limited to: health/medical/biomedical purposes, fundamental biology research, the study of population origins or ancestry, statistical methods and algorithms development, and social-sciences research."
+              "display": "general research use"
             },
             {
               "code": "0000045",
               "system": "http://purl.obolibrary.org/obo/DUO_",
-              "display": "This data use modifier indicates that use of the data is limited to not-for-profit organizations."
+              "display": "not for profit organisation use only"
             }
           ]
         },
@@ -71,7 +71,7 @@
           "profile": [
             "https://nih-ncpi.github.io/ncpi-fhir-ig-2/StructureDefinition/ncpi-research-access-policy"
           ],
-          "lastUpdated": "2026-07-30T20:59:30Z"
+          "lastUpdated": "2026-08-03T21:24:57Z"
         },
         "scope": {
           "coding": [
@@ -110,12 +110,12 @@
             {
               "code": "0000042",
               "system": "http://purl.obolibrary.org/obo/DUO_",
-              "display": "This data use permission indicates that use is allowed for general research use for any research purpose.\nThis includes but is not limited to: health/medical/biomedical purposes, fundamental biology research, the study of population origins or ancestry, statistical methods and algorithms development, and social-sciences research."
+              "display": "general research use"
             },
             {
               "code": "0000045",
               "system": "http://purl.obolibrary.org/obo/DUO_",
-              "display": "This data use modifier indicates that use of the data is limited to not-for-profit organizations."
+              "display": "not for profit organisation use only"
             }
           ]
         },
@@ -148,7 +148,7 @@
             "system": "https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id="
           },
           {
-            "value": "M00M00-01"
+            "value": "CUD:M00M00-01"
           }
         ],
         "resourceType": "ResearchStudy"
