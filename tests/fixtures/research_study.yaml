@@ -24,7 +24,7 @@ access_content:
     external_id: DBGAP:phs000000
   - source_table: study_external_id
     Study_study_id: sd-7hwpqzc2yr
-    external_id: M00M00-01
+    external_id: CUD:M00M00-01
   - source_table: study_program
     Study_study_id: sd-7hwpqzc2yr
     program: include
@@ -37,12 +37,14 @@ access_content:
     institution: Vanderbilt University Medical Center
     investigator_title: PI
     email: robert.carroll@vumc.org
+    study_id: sd-7hwpqzc2yr
     access_policy_id: co-ajdm9fyxxz
   - source_table: investigator
     name: Ann Holmes
     id: 234421
     institution: Vanderbilt University Medical Center
     email: ann.holmes@vumc.org
+    study_id: sd-7hwpqzc2yr
     access_policy_id: co-ajdm9fyxxz
   - source_table: study_principal_investigator
     Study_study_id: sd-7hwpqzc2yr
@@ -57,18 +59,20 @@ access_content:
     do_id: 10.1738/2024.99p6kxef
   - source_table: doi_external_id
     DOI_do_id: 10.1738/2024.99p6kxef
-    external_id: DOI-ext-M00!994abf
+    external_id: DOI:DOI-ext-M00!994abf
   - source_table: publication
     id: 12345
     bibliographic_reference: bibliomoo
     website: https://moocentral-journals/bovina/012366
+    study_id: sd-7hwpqzc2yr
     access_policy_id: co-ajdm9fyxxz
   - source_table: study_publication
     Study_study_id: sd-7hwpqzc2yr
     publication_id: 12345
   - source_table: publication_external_id
     Publication_id: 12345
-    external_id: ext54321
+    #external_id: ext54321
+    external_id: https://magic.place.com/pub?ext54321
     #Study_study_id: sd-7hwpqzc2yr
 
 resource_content:

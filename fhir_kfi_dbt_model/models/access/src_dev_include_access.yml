@@ -23,7 +23,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"subject_id"'
     - name: '"sex"'
       description: Sex of Participant
@@ -65,7 +65,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -73,7 +73,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: access_policy
     description: The access policy that describes the controls around use of data
@@ -85,6 +85,8 @@ sources:
       - unique
     - name: '"data_use_accession"'
       description: Accession used to provision access to the record, eg, a dbGaP phsID.
+      tests:
+      - uri_or_curie_format
     - name: '"data_use_permission"'
       description: Broad category of restrictions on data use.
       tests:
@@ -97,6 +99,8 @@ sources:
       description: Any additional information to support access requests.
     - name: '"website"'
       description: Website with more information about this entity.
+      tests:
+      - valid_uri_format
   - name: study
     description: Study Metadata
     columns:
@@ -106,7 +110,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"parent_study"'
     - name: '"study_title"'
       description: Full Study Title
@@ -124,6 +128,8 @@ sources:
       - not_null
     - name: '"website"'
       description: Website with more information about this entity.
+      tests:
+      - valid_uri_format
     - name: '"acknowledgments"'
       description: Funding statement and acknowledgments for this study
     - name: '"citation_statement"'
@@ -134,7 +140,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'doi')
-            field: do_id
+            field: '"do_id"'
             column_name: '"do_id"'
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
@@ -142,7 +148,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -160,7 +166,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
     - name: '"selection_criteria"'
       description: Brief description of inclusion and/or exclusion criteria for the study
@@ -170,7 +176,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'virtual_biorepository')
-            field: vbr_id
+            field: '"vbr_id"'
             column_name: '"vbr_id"'
     - name: '"expected_number_of_participants"'
       description: Total expected number of participants to be recruited.
@@ -186,7 +192,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
   - name: virtual_biorepository
     description: An organization that can provide access to specimen for further analysis.
@@ -202,6 +208,8 @@ sources:
       description: Name of the institution this record is associated with.
     - name: '"website"'
       description: Website with more information about this entity.
+      tests:
+      - valid_uri_format
     - name: '"vbr_readme"'
       description: Instructions for contacting or requesting samples from Virtual Biorepository, if participating
     - name: '"access_policy_id"'
@@ -210,7 +218,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -218,7 +226,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: doi
     description: A DOI is a permanent reference with metadata about a digital object.
@@ -236,7 +244,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -244,7 +252,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: investigator
     description: An individual who made contributions to the collection, analysis, or sharing of data.
@@ -268,7 +276,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -276,7 +284,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: publication
     description: Information about a specific publication.
@@ -290,13 +298,15 @@ sources:
       description: Text use to reference this Record.
     - name: '"website"'
       description: Website with more information about this entity.
+      tests:
+      - valid_uri_format
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
       tests:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -304,7 +314,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: subject
     description: This entity is the subject about which data or references are recorded. This includes the idea of a human participant in a study, a cell line, an animal model, or any other similar entity.
@@ -329,13 +339,15 @@ sources:
             - other
     - name: '"organism_type"'
       description: Organism Type, typically from NCBITaxon. For reference, Human is NCBITaxon:9606.
+      tests:
+      - uri_or_curie_format
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
       tests:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -343,7 +355,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: demographics
     description: Basic participant demographics summary
@@ -356,7 +368,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"subject_id"'
     - name: '"sex"'
       description: Sex of Participant
@@ -398,7 +410,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -406,7 +418,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: family
     description: A group of individuals of some relation who are grouped together in a study.
@@ -441,13 +453,15 @@ sources:
             - unknown
     - name: '"family_study_focus"'
       description: The specific focus of the investigation, eg, a condition.
+      tests:
+      - uri_or_curie_format
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
       tests:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -455,7 +469,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: family_relationship
     description: A relationship between two Subjects. Directed as follows <family_member_id> <relationship> <subject_id> <Mother's id> <KIN:027 "isBiologicalMotherOf"> <subject_id>
@@ -472,12 +486,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"family_member_id"'
     - name: '"relationship_type"'
       description: Code definting the relationship predicate. Relationship of the "Family Member" to the "Subject", eg, mother of.
       tests:
       - not_null
+      - uri_or_curie_format
     - name: '"subject_id"'
       description: The family member Subject who is the relationship "object".
       tests:
@@ -485,7 +500,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"subject_id"'
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
@@ -493,7 +508,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -501,7 +516,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: family_member
     description: Designates a Subject as a member of a family with a specified role.
@@ -518,7 +533,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'family')
-            field: family_id
+            field: '"family_id"'
             column_name: '"family_id"'
     - name: '"subject_id"'
       description: INCLUDE Global ID for the Subject
@@ -527,17 +542,19 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"subject_id"'
     - name: '"family_role"'
       description: The "role" of this individual in this family. Could include terms like "proband", "mother", etc.
+      tests:
+      - uri_or_curie_format
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
       tests:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -545,7 +562,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: subject_assertion
     description: Assertion about a particular Subject. May include Conditions, Measurements, etc.
@@ -561,7 +578,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"subject_id"'
     - name: '"encounter_id"'
       description: Unique identifier for this Encounter.
@@ -569,7 +586,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'encounter')
-            field: encounter_id
+            field: '"encounter_id"'
             column_name: '"encounter_id"'
     - name: '"assertion_provenance"'
       description: The original source of this assertion
@@ -599,7 +616,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'concept')
-            field: concept_curie
+            field: '"concept_curie"'
             column_name: '"value_unit"'
     - name: '"value_unit_source"'
       description: The source text yielding the value's units.
@@ -609,7 +626,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -617,7 +634,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: concept
     description: A standardized concept with display information.
@@ -627,6 +644,7 @@ sources:
       tests:
       - not_null
       - unique
+      - uri_or_curie_format
     - name: '"display"'
       description: The friendly display string of the coded term.
   - name: sample
@@ -643,7 +661,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'biospecimen_collection')
-            field: biospecimen_collection_id
+            field: '"biospecimen_collection_id"'
             column_name: '"biospecimen_collection_id"'
     - name: '"parent_sample_id"'
       description: Sample from which this sample is derived
@@ -651,12 +669,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'sample')
-            field: sample_id
+            field: '"sample_id"'
             column_name: '"parent_sample_id"'
     - name: '"sample_type"'
       description: Type of material of which this Sample is comprised. UBERON is recommended.
       tests:
       - not_null
+      - uri_or_curie_format
     - name: '"availablity_status"'
       description: Can this Sample be requested for further analysis?
       tests:
@@ -673,7 +692,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'concept')
-            field: concept_curie
+            field: '"concept_curie"'
             column_name: '"quantity_unit"'
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
@@ -681,7 +700,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -689,7 +708,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: biospecimen_collection
     description: A biospecimen collection event which yields one or more Samples.
@@ -715,7 +734,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'encounter')
-            field: encounter_id
+            field: '"encounter_id"'
             column_name: '"encounter_id"'
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
@@ -723,7 +742,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -731,7 +750,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: aliquot
     description: A specific tube or amount of a biospecimen associated with a Sample.
@@ -747,7 +766,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'sample')
-            field: sample_id
+            field: '"sample_id"'
             column_name: '"sample_id"'
     - name: '"availablity_status"'
       description: Can this Sample be requested for further analysis?
@@ -765,7 +784,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'concept')
-            field: concept_curie
+            field: '"concept_curie"'
             column_name: '"quantity_unit"'
     - name: '"concentration_number"'
       description: What is the concentration of the analyte in the Aliquot?
@@ -775,7 +794,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'concept')
-            field: concept_curie
+            field: '"concept_curie"'
             column_name: '"concentration_unit"'
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
@@ -783,7 +802,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -791,7 +810,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: encounter
     description: An event at which data was collected about a participant, an intervention was made, or information about a participant was recorded.
@@ -807,7 +826,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"subject_id"'
     - name: '"encounter_definition_id"'
       description: Unique identifier for this Encounter Definition.
@@ -815,7 +834,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'encounter_definition')
-            field: encounter_definition_id
+            field: '"encounter_definition_id"'
             column_name: '"encounter_definition_id"'
     - name: '"age_at_event"'
       description: The age in days of the Subject at the time point which the assertion describes, eg, age of onset or when a measurement was performed.
@@ -825,7 +844,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -833,7 +852,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: encounter_definition
     description: A definition of an encounter type in this study, ie, an event at which data was collected about a participant, an intervention was made, or information about a participant was recorded. This may be something planned by a study or a type of data collection.
@@ -853,7 +872,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -861,7 +880,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: activity_definition
     description: A definition of an activity in this study, eg, a biospecimen collection, intervention, survey, or assessment.
@@ -881,7 +900,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -889,7 +908,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
   - name: file
     description: File
@@ -930,17 +949,23 @@ sources:
       description: Size of the file, in Bytes.
     - name: '"staging_url"'
       description: URL for internal access to the data. May be temporary.
+      tests:
+      - uri_or_curie_format
     - name: '"release_url"'
       description: URL for controlled or open access to the data.
+      tests:
+      - uri_or_curie_format
     - name: '"drs_uri"'
       description: DRS location to access the data.
+      tests:
+      - uri_or_curie_format
     - name: '"access_policy_id"'
       description: Global identifier for the access policy that applies to this row of data.
       tests:
       - relationships:
           arguments:
             to: source('dev_include_access', 'access_policy')
-            field: access_policy_id
+            field: '"access_policy_id"'
             column_name: '"access_policy_id"'
     - name: '"study_id"'
       description: INCLUDE Global ID for the study
@@ -948,7 +973,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"study_id"'
     - name: '"hash_id"'
       description: File hash information
@@ -956,7 +981,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'file_hash')
-            field: id
+            field: '"id"'
             column_name: '"hash_id"'
   - name: file_hash
     description: Type and value of a file content hash.
@@ -995,7 +1020,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'doi')
-            field: do_id
+            field: '"do_id"'
             column_name: '"do_id"'
     - name: '"data_collection_start"'
       description: The date that data collection started. May include only a year.
@@ -1011,7 +1036,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'include_participant')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"IncludeParticipant_subject_id"'
     - name: '"race"'
       description: Race of Participant
@@ -1049,12 +1074,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'include_participant')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"IncludeParticipant_subject_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1072,6 +1098,7 @@ sources:
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1088,7 +1115,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"Study_study_id"'
     - name: '"program"'
       description: Funding source(s) for the study
@@ -1116,7 +1143,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"Study_study_id"'
     - name: '"funding_source"'
       description: The funding source(s) of the study.
@@ -1138,7 +1165,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"Study_study_id"'
     - name: '"principal_investigator_id"'
       description: The Principal Investigator(s) responsible for the study.
@@ -1147,7 +1174,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'investigator')
-            field: id
+            field: '"id"'
             column_name: '"principal_investigator_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -1165,7 +1192,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"Study_study_id"'
     - name: '"contact_id"'
       description: The individual to contact with questions about this record.
@@ -1174,7 +1201,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'investigator')
-            field: id
+            field: '"id"'
             column_name: '"contact_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -1192,7 +1219,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"Study_study_id"'
     - name: '"publication_id"'
       description: Publications associated with this Record.
@@ -1201,7 +1228,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'publication')
-            field: id
+            field: '"id"'
             column_name: '"publication_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -1219,12 +1246,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study')
-            field: study_id
+            field: '"study_id"'
             column_name: '"Study_study_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1241,7 +1269,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study_metadata')
-            field: study_id
+            field: '"study_id"'
             column_name: '"StudyMetadata_study_id"'
     - name: '"participant_lifespan_stage"'
       description: Focus age group(s) of the study population
@@ -1270,7 +1298,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study_metadata')
-            field: study_id
+            field: '"study_id"'
             column_name: '"StudyMetadata_study_id"'
     - name: '"study_design"'
       description: Overall design of study, including whether it is longitudinal and whether family members/unrelated controls are also enrolled
@@ -1305,7 +1333,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study_metadata')
-            field: study_id
+            field: '"study_id"'
             column_name: '"StudyMetadata_study_id"'
     - name: '"clinical_data_source_type"'
       description: Source(s) of data collected from study participants
@@ -1335,7 +1363,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study_metadata')
-            field: study_id
+            field: '"study_id"'
             column_name: '"StudyMetadata_study_id"'
     - name: '"data_category"'
       description: General category of data in this Record (e.g. Clinical, Genomics, etc)
@@ -1375,7 +1403,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study_metadata')
-            field: study_id
+            field: '"study_id"'
             column_name: '"StudyMetadata_study_id"'
     - name: '"research_domain"'
       description: Main research domain(s) of the study, other than Down syndrome
@@ -1409,12 +1437,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'study_metadata')
-            field: study_id
+            field: '"study_id"'
             column_name: '"StudyMetadata_study_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1431,7 +1460,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'virtual_biorepository')
-            field: vbr_id
+            field: '"vbr_id"'
             column_name: '"VirtualBiorepository_vbr_id"'
     - name: '"contact_id"'
       description: The individual to contact with questions about this record.
@@ -1440,7 +1469,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'investigator')
-            field: id
+            field: '"id"'
             column_name: '"contact_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -1458,12 +1487,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'virtual_biorepository')
-            field: vbr_id
+            field: '"vbr_id"'
             column_name: '"VirtualBiorepository_vbr_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1480,12 +1510,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'doi')
-            field: do_id
+            field: '"do_id"'
             column_name: '"DOI_do_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1502,12 +1533,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'investigator')
-            field: id
+            field: '"id"'
             column_name: '"Investigator_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1524,12 +1556,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'publication')
-            field: id
+            field: '"id"'
             column_name: '"Publication_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1546,12 +1579,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"Subject_subject_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1568,7 +1602,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'demographics')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"Demographics_subject_id"'
     - name: '"race"'
       description: Race of Participant
@@ -1606,12 +1640,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'demographics')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"Demographics_subject_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1628,12 +1663,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'family')
-            field: family_id
+            field: '"family_id"'
             column_name: '"Family_family_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1650,12 +1686,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'family_relationship')
-            field: family_relationship_id
+            field: '"family_relationship_id"'
             column_name: '"FamilyRelationship_family_relationship_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1672,12 +1709,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'family_member')
-            field: id
+            field: '"id"'
             column_name: '"FamilyMember_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1694,7 +1732,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject_assertion')
-            field: assertion_id
+            field: '"assertion_id"'
             column_name: '"SubjectAssertion_assertion_id"'
     - name: '"concept_concept_curie"'
       description: The structured term defining the meaning of the assertion.
@@ -1703,7 +1741,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'concept')
-            field: concept_curie
+            field: '"concept_curie"'
             column_name: '"concept_concept_curie"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -1721,7 +1759,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject_assertion')
-            field: assertion_id
+            field: '"assertion_id"'
             column_name: '"SubjectAssertion_assertion_id"'
     - name: '"value_concept_concept_curie"'
       description: The structured term defining the value of the assertion.
@@ -1730,7 +1768,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'concept')
-            field: concept_curie
+            field: '"concept_curie"'
             column_name: '"value_concept_concept_curie"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -1748,12 +1786,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject_assertion')
-            field: assertion_id
+            field: '"assertion_id"'
             column_name: '"SubjectAssertion_assertion_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1770,12 +1809,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'sample')
-            field: sample_id
+            field: '"sample_id"'
             column_name: '"Sample_sample_id"'
     - name: '"processing"'
       description: Processing that was applied to the Parent Sample or from the Biospecimen Collection that yielded this distinct sample. OBI is recommended.
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1792,12 +1832,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'sample')
-            field: sample_id
+            field: '"sample_id"'
             column_name: '"Sample_sample_id"'
     - name: '"storage_method"'
       description: Sample storage method, eg, Frozen or with additives. OBI may be suitable, or ChEBI for additives.
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1814,12 +1855,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'sample')
-            field: sample_id
+            field: '"sample_id"'
             column_name: '"Sample_sample_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1836,12 +1878,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'biospecimen_collection')
-            field: biospecimen_collection_id
+            field: '"biospecimen_collection_id"'
             column_name: '"BiospecimenCollection_biospecimen_collection_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1858,12 +1901,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'aliquot')
-            field: aliquot_id
+            field: '"aliquot_id"'
             column_name: '"Aliquot_aliquot_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1880,12 +1924,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'encounter')
-            field: encounter_id
+            field: '"encounter_id"'
             column_name: '"Encounter_encounter_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1902,7 +1947,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'encounter_definition')
-            field: encounter_definition_id
+            field: '"encounter_definition_id"'
             column_name: '"EncounterDefinition_encounter_definition_id"'
     - name: '"activity_definition_id_activity_definition_id"'
       description: Unique identifier for this Activity Definition.
@@ -1911,7 +1956,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'activity_definition')
-            field: activity_definition_id
+            field: '"activity_definition_id"'
             column_name: '"activity_definition_id_activity_definition_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -1929,12 +1974,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'encounter_definition')
-            field: encounter_definition_id
+            field: '"encounter_definition_id"'
             column_name: '"EncounterDefinition_encounter_definition_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1951,12 +1997,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'activity_definition')
-            field: activity_definition_id
+            field: '"activity_definition_id"'
             column_name: '"ActivityDefinition_activity_definition_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -1973,7 +2020,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'file')
-            field: file_id
+            field: '"file_id"'
             column_name: '"File_file_id"'
     - name: '"subject_id_subject_id"'
       description: INCLUDE Global ID for the Subject
@@ -1982,7 +2029,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'subject')
-            field: subject_id
+            field: '"subject_id"'
             column_name: '"subject_id_subject_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -2000,7 +2047,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'file')
-            field: file_id
+            field: '"file_id"'
             column_name: '"File_file_id"'
     - name: '"sample_id_sample_id"'
       description: The unique identifier for this Sample.
@@ -2009,7 +2056,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'sample')
-            field: sample_id
+            field: '"sample_id"'
             column_name: '"sample_id_sample_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -2027,12 +2074,13 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'file')
-            field: file_id
+            field: '"file_id"'
             column_name: '"File_file_id"'
     - name: '"external_id"'
       description: Other identifiers for this entity, eg, from the submitting study or in systems like dbGaP
       tests:
       - not_null
+      - uri_or_curie_format
     tests:
     - dbt_utils.unique_combination_of_columns:
         arguments:
@@ -2049,7 +2097,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'dataset')
-            field: dataset_id
+            field: '"dataset_id"'
             column_name: '"Dataset_dataset_id"'
     - name: '"file_id_file_id"'
       description: The list of files comprising this dataset.
@@ -2058,7 +2106,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'file')
-            field: file_id
+            field: '"file_id"'
             column_name: '"file_id_file_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:
@@ -2076,7 +2124,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'dataset')
-            field: dataset_id
+            field: '"dataset_id"'
             column_name: '"Dataset_dataset_id"'
     - name: '"publication_id"'
       description: Publications associated with this Record.
@@ -2085,7 +2133,7 @@ sources:
       - relationships:
           arguments:
             to: source('dev_include_access', 'publication')
-            field: id
+            field: '"id"'
             column_name: '"publication_id"'
     tests:
     - dbt_utils.unique_combination_of_columns:

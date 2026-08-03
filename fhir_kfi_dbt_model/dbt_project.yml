@@ -34,3 +34,17 @@ models:
         fhir:
           +materialized: view
           +schema: fhir_ready
+
+seeds:
+  fhir_kfi_dbt_model:
+    harmony:
+      +column_types:
+        local_code: varchar(255)
+        text: varchar(255)
+        table_name: varchar(255)
+        parent_varname: varchar(255)
+        local_code_system: varchar(255)
+        code: varchar(255)
+        display: varchar(255)
+        code_system: varchar(255)
+        comment: varchar(255)
