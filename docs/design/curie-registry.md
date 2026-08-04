@@ -4,6 +4,7 @@ Status: proposed · Owner: Eric Torstenson · Repo (new): `include-dcc/curie-reg
 
 ## Problem
 
+
 External IDs on INCLUDE Access Model classes (`Study.external_id`, `Sample.external_id`, `Subject.external_id`, …) are LinkML `uriorcurie` values — in practice almost all curies, e.g. `DBGAP:phs000123`. To mint a valid FHIR `Identifier`, each one needs a `system` URI, which depends on:
 
 1. **`curie_prefix`** — the part before the colon (`DBGAP`)
